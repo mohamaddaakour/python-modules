@@ -33,4 +33,4 @@ def  ft_plant_factory():
 
     print(f"Total plants created: {len(plants)}")
 
-ft_plant_factory()
+# ft_plant_factory()

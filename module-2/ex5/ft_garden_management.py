@@ -79,5 +79,5 @@ def test_garden_manager():
 
     print("Garden management system test complete!")
 
-if __name__ == "__main__":
-    test_garden_manager()
+# if __name__ == "__main__":
+#     test_garden_manager()

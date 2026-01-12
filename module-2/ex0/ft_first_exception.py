@@ -22,4 +22,4 @@ def test_temperature_input():
 
     print("All tests completed - program didn't crash!")
 
-test_temperature_input()
+# test_temperature_input()

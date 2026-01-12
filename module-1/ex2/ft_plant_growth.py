@@ -31,4 +31,4 @@ def ft_plant_growth():
     violet.get_info()
     tulip.get_info()
 
-ft_plant_growth()
+# ft_plant_growth()

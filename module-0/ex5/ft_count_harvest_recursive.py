@@ -9,3 +9,5 @@ def ft_count_harvest_recursive():
         count(day + 1)
 
     count(1)
+
+# ft_count_harvest_recursive()

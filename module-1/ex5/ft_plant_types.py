@@ -72,5 +72,5 @@ def ft_garden_plant_types():
             plant.nutrition_info()
 
 
-if __name__ == "__main__":
-    ft_garden_plant_types()
+# if __name__ == "__main__":
+#     ft_garden_plant_types()

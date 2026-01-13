@@ -21,6 +21,7 @@ class Plant:
 
         print("=== Day 7 ===")
         print(f"{self.name}: {self.height}cm, {self.plant_age} days old")
+        print("Growth this week: +6cm")
 
 rose = Plant("Rose", 25, 35)
 violet = Plant("Violet", 30, 75)
@@ -31,4 +32,5 @@ def ft_plant_growth():
     violet.get_info()
     tulip.get_info()
 
-# ft_plant_growth()
+if __name__ == "__main__":
+    ft_plant_growth()

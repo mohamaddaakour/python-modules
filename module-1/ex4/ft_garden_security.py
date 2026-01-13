@@ -1,30 +1,31 @@
 class SecurePlant:
     def __init__(self, name):
         self.name = name
+        self.height = 0
+        self.age = 0
 
     def set_height(self, height):
         if height < 0:
-            print(f"Invalid operation attempted: height {self.height}cm [REJECTED]")
-            print(f"Security: Negative height rejected")
+            print(f"Invalid operation attempted: height {height}cm [REJECTED]")
+            print("Security: Negative height rejected")
             return
-        else:
-            self.height = height
-            print(f"Height updated: {self.height}cm [OK]")
+        self.height = height
+        print(f"Height updated: {self.height}cm [OK]")
 
     def set_age(self, age):
         if age < 0:
-            print(f"Invalid operation attempted: age {self.age}cm [REJECTED]")
-            print(f"Security: Negative age rejected")
+            print(f"Invalid operation attempted: age {age} days [REJECTED]")
+            print("Security: Negative age rejected")
             return
-        else:
-            self.age = age
-            print(f"Age updated: {self.age} days [OK]")
+        self.age = age
+        print(f"Age updated: {self.age} days [OK]")
 
     def get_height(self):
         return self.height
 
     def get_age(self):
         return self.age
+
 
 rose = SecurePlant("Rose")
 
@@ -38,4 +39,6 @@ def ft_garden_security():
 
     print(f"Current plant: {rose.name} ({rose.height}cm, {rose.age} days)")
 
-# ft_garden_security()
+
+if __name__ == "__main__":
+    ft_garden_security()

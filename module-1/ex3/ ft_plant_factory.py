@@ -1,7 +1,4 @@
 class Plant:
-    # attribute
-    plants = []
-
     # constructor
     def __init__(self, name, height, age):
         self.name = name
@@ -30,7 +27,10 @@ def  ft_plant_factory():
 
     for i in plants:
         i.get_info()
+    
+    print("")
 
     print(f"Total plants created: {len(plants)}")
 
-# ft_plant_factory()
+if __name__ == "__main__":
+    ft_plant_factory()

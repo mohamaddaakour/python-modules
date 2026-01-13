@@ -10,9 +10,9 @@ class Plant:
         print(f"{self.name}: {self.height}cm, {self.age} days old")
 
 # creating instances
-rose = Plant("Rose", 25, 35)
-violet = Plant("Violet", 30, 75)
-tulip = Plant("Tulip", 45, 85)
+rose = Plant("Rose", 25, 30)
+violet = Plant("Violet", 80, 45)
+tulip = Plant("Tulip", 15, 120)
 
 def ft_garden_data():
     print("=== Garden Plant Registry ===")
@@ -20,4 +20,5 @@ def ft_garden_data():
     violet.printing()
     tulip.printing()
 
-# ft_garden_data()
+if __name__ == "__main__":
+    ft_garden_data()

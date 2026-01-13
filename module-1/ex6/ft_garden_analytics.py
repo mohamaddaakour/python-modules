@@ -46,7 +46,7 @@ class Garden:
     def grow_all(self):
         print(f"{self.owner} is helping all plants grow...")
         for plant in self.plants:
-            # plant.grow()
+            plant.grow()
             self.total_growth += 1
 
     def report(self, stats_helper):
@@ -118,32 +118,32 @@ class GardenManager:
         print(f"Total gardens managed: {len(cls.gardens)}")
 
 
-# if __name__ == "__main__":
-#     print("=== Garden Management System Demo ===")
+if __name__ == "__main__":
+    print("=== Garden Management System Demo ===")
 
-#     manager = GardenManager()
-#     stats = GardenManager.GardenStats()
+    manager = GardenManager()
+    stats = GardenManager.GardenStats()
 
-#     alice_garden = Garden("Alice")
-#     bob_garden = Garden("Bob")
+    alice_garden = Garden("Alice")
+    bob_garden = Garden("Bob")
 
-#     manager.add_garden(alice_garden)
-#     manager.add_garden(bob_garden)
+    manager.add_garden(alice_garden)
+    manager.add_garden(bob_garden)
 
-#     oak = Plant("Oak Tree", 100)
-#     rose = FloweringPlant("Rose", 25, "red")
-#     sunflower = PrizeFlower("Sunflower", 50, "yellow", 10)
+    oak = Plant("Oak Tree", 100)
+    rose = FloweringPlant("Rose", 25, "red")
+    sunflower = PrizeFlower("Sunflower", 50, "yellow", 10)
 
-#     alice_garden.add_plant(oak)
-#     alice_garden.add_plant(rose)
-#     alice_garden.add_plant(sunflower)
+    alice_garden.add_plant(oak)
+    alice_garden.add_plant(rose)
+    alice_garden.add_plant(sunflower)
 
-#     alice_garden.grow_all()
-#     alice_garden.report(stats)
+    alice_garden.grow_all()
+    alice_garden.report(stats)
 
-#     print(f"Height validation test: {GardenManager.validate_height(10)}")
+    print(f"Height validation test: {GardenManager.validate_height(10)}")
 
-#     bob_garden.add_plant(Plant("Pine Tree", 80))
-#     bob_garden.grow_all()
+    bob_garden.add_plant(Plant("Pine Tree", 80))
+    bob_garden.grow_all()
 
-#     GardenManager.create_garden_network()
+    GardenManager.create_garden_network()

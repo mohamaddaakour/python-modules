@@ -34,13 +34,13 @@ def test_custom_errors():
         print(f"Caught WaterError: {e}")
 
     print("Testing catching all garden errors...")
-    for func in [check_plant, check_water]:
+    for fun in [check_plant, check_water]:
         try:
-            func()
+            fun()
         except GardenError as e:
             print(f"Caught a garden error: {e}")
 
     print("All custom error types work correctly!")
 
-# if __name__ == "__main__":
-#     test_custom_errors()
+if __name__ == "__main__":
+    test_custom_errors()

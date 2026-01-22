@@ -47,7 +47,7 @@ def main():
         processed += 1
 
         if processed <= 3:
-            print(f"Event {event_id}: Player {player} (level {level}) {action}")
+            print(f"Event {event_id}: Player {player} (level {level}){action}")
 
         if level >= 10:
             high_level += 1

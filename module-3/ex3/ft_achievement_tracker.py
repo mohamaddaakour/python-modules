@@ -1,8 +1,8 @@
 def main():
     print("=== Achievement Tracker System ===")
 
-    alice = set(["first_kill", "level_10", "treasure_hunter", "speed_demon"])
-    bob = set(["first_kill", "level_10", "boss_slayer", "collector"])
+    alice = set(["first_kill", "level_10", "treasure_hunter", "speed_demon", "first_kill"])
+    bob = set(["first_kill", "level_10", "boss_slayer", "collector", "collector"])
     charlie = set([
         "level_10",
         "treasure_hunter",

@@ -8,8 +8,9 @@ class Plant:
     def get_info(self):
         print(f"Created: {self.name} ({self.height}cm, {self.plant_age} days)")
 
+
 # factory function
-def  ft_plant_factory():
+def ft_plant_factory():
     plants = []
 
     print("=== Plant Factory Output ===")
@@ -27,10 +28,11 @@ def  ft_plant_factory():
 
     for i in plants:
         i.get_info()
-    
+
     print("")
 
     print(f"Total plants created: {len(plants)}")
+
 
 if __name__ == "__main__":
     ft_plant_factory()

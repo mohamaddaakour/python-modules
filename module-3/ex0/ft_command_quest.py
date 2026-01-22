@@ -22,5 +22,5 @@ def main():
 
     print(f"Total arguments: {total_args}")
 
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+    main()

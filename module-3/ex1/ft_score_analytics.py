@@ -35,5 +35,5 @@ def main():
     print(f"Low score: {low_score}")
     print(f"Score range: {score_range}")
 
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+    main()

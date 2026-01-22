@@ -18,7 +18,8 @@ class Flower(Plant):
         print(f"{self.name} is blooming beautifully!")
 
     def get_info(self):
-        return f"{self.name} (Flower): {self.height}cm, {self.age} days, {self.color} color"
+        return f"{self.name} (Flower): {self.height}cm"
+        f", {self.age} days, {self.color} color"
 
 
 # Tree subclass
@@ -32,7 +33,8 @@ class Tree(Plant):
         print(f"{self.name} provides {shade_area:.0f} square meters of shade")
 
     def get_info(self):
-        return f"{self.name} (Tree): {self.height}cm, {self.age} days, {self.trunk_diameter}cm diameter"
+        return f"{self.name} (Tree): {self.height}cm"
+        f", {self.age} days, {self.trunk_diameter}cm diameter"
 
 
 # Vegetable subclass
@@ -43,7 +45,8 @@ class Vegetable(Plant):
         self.nutritional_value = nutritional_value
 
     def get_info(self):
-        return f"{self.name} (Vegetable): {self.height}cm, {self.age} days, {self.harvest_season} harvest"
+        return f"{self.name} (Vegetable): {self.height}cm"
+        f", {self.age} days, {self.harvest_season} harvest"
 
     def nutrition_info(self):
         print(f"{self.name} is rich in {self.nutritional_value}")
@@ -52,6 +55,8 @@ class Vegetable(Plant):
 # Create plant instances
 def ft_garden_plant_types():
     print("=== Garden Plant Types ===")
+
+    print("")
 
     rose = Flower("Rose", 25, 30, "red")
     tulip = Flower("Tulip", 20, 25, "yellow")
@@ -66,10 +71,13 @@ def ft_garden_plant_types():
         print(plant.get_info())
         if isinstance(plant, Flower):
             plant.bloom()
+            print("")
         elif isinstance(plant, Tree):
             plant.produce_shade()
+            print("")
         elif isinstance(plant, Vegetable):
             plant.nutrition_info()
+            print("")
 
 
 if __name__ == "__main__":

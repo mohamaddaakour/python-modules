@@ -23,14 +23,17 @@ class Plant:
         print(f"{self.name}: {self.height}cm, {self.plant_age} days old")
         print("Growth this week: +6cm")
 
+
 rose = Plant("Rose", 25, 35)
 violet = Plant("Violet", 30, 75)
 tulip = Plant("Tulip", 45, 85)
+
 
 def ft_plant_growth():
     rose.get_info()
     violet.get_info()
     tulip.get_info()
+
 
 if __name__ == "__main__":
     ft_plant_growth()

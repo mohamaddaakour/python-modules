@@ -1,11 +1,13 @@
 import sys
 import math
 
+# p1 and p2 are tuples
 def distance_3d(p1, p2):
     x1, y1, z1 = p1
     x2, y2, z2 = p2
     return math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2 + (z2 - z1) ** 2)
 
+# convert the string into tuple
 def parse_coordinates(coord_str):
     parts = coord_str.split(",")
     return tuple(int(part) for part in parts)

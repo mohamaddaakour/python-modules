@@ -6,4 +6,5 @@ def ft_plot_area():
 
     print(f"Plot area: {area}")
 
+
 # ft_plot_area()

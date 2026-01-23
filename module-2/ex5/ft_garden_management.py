@@ -12,10 +12,10 @@ class WaterError(GardenError):
 
 
 class GardenManager:
-    def __init__(self):
+    def __init__(self) -> None:
         self.plants = {}
 
-    def add_plant(self, name, water_level, sunlight_hours):
+    def add_plant(self, name: str, water_level: int, sunlight_hours: int) -> None:
         try:
             if not name:
                 raise PlantError("Plant name cannot be empty!")
@@ -24,7 +24,7 @@ class GardenManager:
         except PlantError as e:
             print(f"Error adding plant: {e}")
 
-    def water_plants(self):
+    def water_plants(self) -> None:
         print("Opening watering system")
         try:
             for plant_name in self.plants:
@@ -37,7 +37,7 @@ class GardenManager:
         finally:
             print("Closing watering system (cleanup)")
 
-    def check_health(self):
+    def check_health(self) -> None:
         print("Checking plant health...")
         for name, info in self.plants.items():
             try:
@@ -56,8 +56,11 @@ class GardenManager:
                 print(f"Error checking {name}: {e}")
 
 
-def test_garden_manager():
+def test_garden_manager() -> None:
     print("=== Garden Management System ===")
+
+    print("")
+
     manager = GardenManager()
 
     print("Adding plants to garden...")
@@ -65,10 +68,16 @@ def test_garden_manager():
     manager.add_plant("lettuce", 15, 6)
     manager.add_plant("", 5, 8)
 
+    print("")
+
     print("Watering plants...")
     manager.water_plants()
 
+    print("")
+
     manager.check_health()
+
+    print("")
 
     print("Testing error recovery...")
     try:
@@ -77,7 +86,9 @@ def test_garden_manager():
         print(f"Caught GardenError: {e}")
         print("System recovered and continuing...")
 
+    print("")
+
     print("Garden management system test complete!")
 
-# if __name__ == "__main__":
-#     test_garden_manager()
+if __name__ == "__main__":
+    test_garden_manager()

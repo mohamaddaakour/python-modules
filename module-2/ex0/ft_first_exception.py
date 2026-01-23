@@ -1,4 +1,4 @@
-def ft_first_exception(temp_str: int):
+def ft_first_exception(temp_str: int) -> None:
     try:
         temp_str = int(temp_str)
 
@@ -15,7 +15,7 @@ def ft_first_exception(temp_str: int):
         print(f"Error: {temp_str} is not a valid number")
 
 
-def test_temperature_input():
+def test_temperature_input() -> None:
     print("=== Garden Temperature Checker ===")
 
     print("")

@@ -1,4 +1,4 @@
-def garden_operations():
+def garden_operations() -> None:
     print("=== Garden Error Types Demo ===")
 
     print("")
@@ -49,7 +49,7 @@ def garden_operations():
         print(f"Caught an error, but program continues!")
 
 
-def test_error_types():
+def test_error_types() -> None:
     garden_operations()
     print("")
     print("All error types tested successfully!")

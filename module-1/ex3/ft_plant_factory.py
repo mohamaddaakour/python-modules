@@ -1,16 +1,16 @@
 class Plant:
     # constructor
-    def __init__(self, name: str, height: int, age: int):
+    def __init__(self, name: str, height: int, age: int) -> None:
         self.name = name
         self.height = height
         self.plant_age = age
 
-    def get_info(self):
+    def get_info(self) -> None:
         print(f"Created: {self.name} ({self.height}cm, {self.plant_age} days)")
 
 
 # factory function
-def ft_plant_factory():
+def ft_plant_factory() -> None:
     plants = []
 
     print("=== Plant Factory Output ===")

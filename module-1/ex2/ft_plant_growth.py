@@ -1,18 +1,18 @@
 class Plant:
     # constructor
-    def __init__(self, name: str, height: int, age: int):
+    def __init__(self, name: str, height: int, age: int) -> None:
         self.name = name
         self.height = height
         self.plant_age = age
 
     # methods
-    def grow(self):
+    def grow(self) -> None:
         self.height += 6
 
-    def age(self):
+    def age(self) -> None:
         self.plant_age += 6
 
-    def get_info(self):
+    def get_info(self) -> None:
         print("=== Day 1 ===")
         print(f"{self.name}: {self.height}cm, {self.plant_age} days old")
 
@@ -29,7 +29,7 @@ violet = Plant("Violet", 30, 75)
 tulip = Plant("Tulip", 45, 85)
 
 
-def ft_plant_growth():
+def ft_plant_growth() -> None:
     rose.get_info()
     violet.get_info()
     tulip.get_info()

@@ -1,12 +1,12 @@
 class Plant:
     # constructor
-    def __init__(self, name: str, height: int, age: int):
+    def __init__(self, name: str, height: int, age: int) -> None:
         self.name = name
         self.height = height
         self.age = age
 
     # method
-    def printing(self):
+    def printing(self) -> None:
         print(f"{self.name}: {self.height}cm, {self.age} days old")
 
 
@@ -16,7 +16,7 @@ violet = Plant("Sunflower", 80, 45)
 tulip = Plant("Cactus", 15, 120)
 
 
-def ft_garden_data():
+def ft_garden_data() -> None:
     print("=== Garden Plant Registry ===")
     rose.printing()
     violet.printing()

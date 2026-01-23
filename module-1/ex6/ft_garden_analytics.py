@@ -1,32 +1,32 @@
 class Plant:
-    def __init__(self, name: str, height: int):
+    def __init__(self, name: str, height: int) -> None:
         self.name = name
         self.height = height
 
-    def grow(self):
+    def grow(self) -> None:
         self.height += 1
         print(f"{self.name} grew 1cm")
 
-    def describe(self):
+    def describe(self) -> str:
         return f"{self.name}: {self.height}cm"
 
 
 class FloweringPlant(Plant):
-    def __init__(self, name: str, height: int, color: int):
+    def __init__(self, name: str, height: int, color: int) -> None:
         super().__init__(name, height)
         self.color = color
         self.blooming = True
 
-    def describe(self):
+    def describe(self) -> str:
         return f"{self.name}: {self.height}cm, {self.color} flowers (blooming)"
 
 
 class PrizeFlower(FloweringPlant):
-    def __init__(self, name: str, height: int, color: str, prize_points: int):
+    def __init__(self, name: str, height: int, color: str, prize_points: int) -> None:
         super().__init__(name, height, color)
         self.prize_points = prize_points
 
-    def describe(self):
+    def describe(self) -> str:
         return (
             f"{self.name}: {self.height}cm, {self.color} flowers (blooming), "
             f"Prize points: {self.prize_points}"
@@ -34,22 +34,22 @@ class PrizeFlower(FloweringPlant):
 
 
 class Garden:
-    def __init__(self, owner: str):
+    def __init__(self, owner: str) -> None:
         self.owner = owner
         self.plants = []
         self.total_growth = 0
 
-    def add_plant(self, plant: str):
+    def add_plant(self, plant: str) -> None:
         self.plants.append(plant)
         print(f"Added {plant.name} to {self.owner}'s garden")
 
-    def grow_all(self):
+    def grow_all(self) -> None:
         print(f"{self.owner} is helping all plants grow...")
         for plant in self.plants:
             plant.grow()
             self.total_growth += 1
 
-    def report(self, stats_helper: str):
+    def report(self, stats_helper: str) -> None:
         print(f"=== {self.owner}'s Garden Report ===")
         print("Plants in garden:")
         for plant in self.plants:
@@ -68,11 +68,8 @@ class Garden:
 class GardenManager:
     gardens = []
 
-    def __init__(self):
-        pass
-
     class GardenStats:
-        def calculate(self, plants: str, growth: int):
+        def calculate(self, plants: str, growth: int) -> dict:
             regular = 0
             flowering = 0
             prize = 0
@@ -93,15 +90,15 @@ class GardenManager:
                 "prize": prize,
             }
 
-    def add_garden(self, garden: str):
+    def add_garden(self, garden: str) -> None:
         GardenManager.gardens.append(garden)
 
     @staticmethod
-    def validate_height(height: int):
+    def validate_height(height: int) -> bool:
         return height > 0
 
     @classmethod
-    def create_garden_network(cls):
+    def create_garden_network(cls) -> None:
         scores = {}
         for garden in cls.gardens:
             score = 0

@@ -1,11 +1,15 @@
 def garden_operations():
     print("=== Garden Error Types Demo ===")
 
+    print("")
+
     print("Testing ValueError...")
     try:
         int("abc")
     except ValueError as e:
         print(f"Caught ValueError: {e}")
+
+    print("")
 
     print("Testing ZeroDivisionError...")
     try:
@@ -14,13 +18,16 @@ def garden_operations():
     except ZeroDivisionError as e:
         print(f"Caught ZeroDivisionError: {e}")
 
+    print("")
+
     print("Testing FileNotFoundError...")
     try:
         with open("missing.txt") as f:
-            content = f.read()
-            print(content)
+            pass
     except FileNotFoundError as e:
         print(f"Caught FileNotFoundError: {e}")
+
+    print("")
 
     print("Testing KeyError...")
     garden_plants = {"rose": 5, "sunflower": 3}
@@ -30,6 +37,8 @@ def garden_operations():
     except KeyError as e:
         print(f"Caught KeyError: {e}")
 
+    print("")
+
     print("Testing multiple errors together...")
     try:
         x = int("xyz")
@@ -37,11 +46,12 @@ def garden_operations():
         print(x)
         print(y)
     except (ValueError, ZeroDivisionError) as e:
-        print(f"Caught an error, but program continues! {e}")
+        print(f"Caught an error, but program continues!")
 
 
 def test_error_types():
     garden_operations()
+    print("")
     print("All error types tested successfully!")
 
 

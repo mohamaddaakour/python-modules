@@ -1,5 +1,5 @@
 class Plant:
-    def __init__(self, name, height):
+    def __init__(self, name: str, height: int):
         self.name = name
         self.height = height
 
@@ -12,7 +12,7 @@ class Plant:
 
 
 class FloweringPlant(Plant):
-    def __init__(self, name, height, color):
+    def __init__(self, name: str, height: int, color: int):
         super().__init__(name, height)
         self.color = color
         self.blooming = True
@@ -22,7 +22,7 @@ class FloweringPlant(Plant):
 
 
 class PrizeFlower(FloweringPlant):
-    def __init__(self, name, height, color, prize_points):
+    def __init__(self, name: str, height: int, color: str, prize_points: int):
         super().__init__(name, height, color)
         self.prize_points = prize_points
 
@@ -34,12 +34,12 @@ class PrizeFlower(FloweringPlant):
 
 
 class Garden:
-    def __init__(self, owner):
+    def __init__(self, owner: str):
         self.owner = owner
         self.plants = []
         self.total_growth = 0
 
-    def add_plant(self, plant):
+    def add_plant(self, plant: str):
         self.plants.append(plant)
         print(f"Added {plant.name} to {self.owner}'s garden")
 
@@ -49,7 +49,7 @@ class Garden:
             plant.grow()
             self.total_growth += 1
 
-    def report(self, stats_helper):
+    def report(self, stats_helper: str):
         print(f"=== {self.owner}'s Garden Report ===")
         print("Plants in garden:")
         for plant in self.plants:
@@ -72,7 +72,7 @@ class GardenManager:
         pass
 
     class GardenStats:
-        def calculate(self, plants, growth):
+        def calculate(self, plants: str, growth: int):
             regular = 0
             flowering = 0
             prize = 0
@@ -93,11 +93,11 @@ class GardenManager:
                 "prize": prize,
             }
 
-    def add_garden(self, garden):
+    def add_garden(self, garden: str):
         GardenManager.gardens.append(garden)
 
     @staticmethod
-    def validate_height(height):
+    def validate_height(height: int):
         return height > 0
 
     @classmethod

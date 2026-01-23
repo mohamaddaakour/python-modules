@@ -1,7 +1,8 @@
-def main():
+def main() -> None:
     print("=== Game Analytics Dashboard ===")
 
-    # Sample data
+    print("")
+
     players = [
         {"name": "alice", "score": 2300, "achievements": 5, "active": True, "region": "north"},
         {"name": "bob", "score": 1800, "achievements": 3, "active": True, "region": "east"},
@@ -28,6 +29,8 @@ def main():
     active_players = [p["name"] for p in players if p["active"]]
     print(f"Active players: {active_players}")
 
+    print("")
+
     print("=== Dict Comprehension Examples ===")
 
     player_scores = {p["name"]: p["score"] for p in players if p["active"]}
@@ -43,6 +46,8 @@ def main():
     achievement_counts = {p["name"]: p["achievements"] for p in players}
     print(f"Achievement counts: {achievement_counts}")
 
+    print("")
+
     print("=== Set Comprehension Examples ===")
 
     unique_players = {p["name"] for p in players}
@@ -53,6 +58,8 @@ def main():
 
     active_regions = {p["region"] for p in players if p["active"]}
     print(f"Active regions: {active_regions}")
+
+    print("")
 
     print("=== Combined Analysis ===")
 

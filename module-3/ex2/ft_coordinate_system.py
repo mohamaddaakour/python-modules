@@ -1,19 +1,19 @@
 import sys
 import math
 
-# p1 and p2 are tuples
-def distance_3d(p1, p2):
+def distance_3d(p1: tuple[int, int, int], p2: tuple[int, int, int]) -> int:
     x1, y1, z1 = p1
     x2, y2, z2 = p2
     return math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2 + (z2 - z1) ** 2)
 
-# convert the string into tuple
-def parse_coordinates(coord_str):
+def parse_coordinates(coord_str: str) -> tuple[int, int, int]:
     parts = coord_str.split(",")
     return tuple(int(part) for part in parts)
 
-def main():
+def main() -> None:
     print("=== Game Coordinate System ===")
+
+    print("")
 
     origin = (0, 0, 0)
     position = (10, 20, 5)
@@ -21,6 +21,8 @@ def main():
     print(f"Position created: {position}")
     dist = distance_3d(origin, position)
     print(f"Distance between {origin} and {position}: {round(dist, 2)}")
+
+    print("")
 
     coord_string = "3,4,0"
     print(f'Parsing coordinates: "{coord_string}"')
@@ -32,6 +34,8 @@ def main():
     except Exception as e:
         print(f"Error parsing coordinates: {e}")
 
+    print("")
+
     invalid_string = "abc,def,ghi"
     print(f'Parsing invalid coordinates: "{invalid_string}"')
     try:
@@ -39,6 +43,8 @@ def main():
     except Exception as e:
         print(f"Error parsing coordinates: {e}")
         print(f"Error details - Type: {type(e).__name__}, Args: {e.args}")
+
+    print("")
 
     print("Unpacking demonstration:")
     x, y, z = parsed_position

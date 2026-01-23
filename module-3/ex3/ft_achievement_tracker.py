@@ -1,5 +1,7 @@
-def main():
+def main() -> None:
     print("=== Achievement Tracker System ===")
+
+    print("")
 
     alice = set(["first_kill", "level_10", "treasure_hunter", "speed_demon", "first_kill"])
     bob = set(["first_kill", "level_10", "boss_slayer", "collector", "collector"])
@@ -15,6 +17,8 @@ def main():
     print(f"Player bob achievements: {bob}")
     print(f"Player charlie achievements: {charlie}")
 
+    print("")
+
     print("=== Achievement Analytics ===")
 
     all_achievements = alice.union(bob).union(charlie)
@@ -22,6 +26,9 @@ def main():
     print(f"Total unique achievements: {len(all_achievements)}")
 
     common_all = alice.intersection(bob).intersection(charlie)
+
+    print("")
+
     print(f"Common to all players: {common_all}")
 
     rare_achievements = all_achievements.difference(
@@ -30,6 +37,8 @@ def main():
         .union(bob.intersection(charlie))
     )
     print(f"Rare achievements (1 player): {rare_achievements}")
+
+    print("")
 
     alice_bob_common = alice.intersection(bob)
     print(f"Alice vs Bob common: {alice_bob_common}")

@@ -1,18 +1,20 @@
-def calculate_inventory_value(inventory):
+# we have to check it
+
+def calculate_inventory_value(inventory: dict) -> int:
     total = 0
     for item in inventory.values():
         total += item["quantity"] * item["value"]
     return total
 
 
-def count_items(inventory):
+def count_items(inventory: dict) -> int:
     total = 0
     for item in inventory.values():
         total += item["quantity"]
     return total
 
 
-def category_summary(inventory):
+def category_summary(inventory: dict) -> dict:
     categories = dict()
     for item in inventory.values():
         category = item["category"]
@@ -20,7 +22,7 @@ def category_summary(inventory):
     return categories
 
 
-def print_inventory(name, inventory):
+def print_inventory(name: str, inventory: dict) -> None:
     print(f"=== {name}'s Inventory ===")
     for item_name, data in inventory.items():
         total_price = data["quantity"] * data["value"]
@@ -42,8 +44,8 @@ def print_inventory(name, inventory):
     print("Categories: " + ", ".join(category_line))
 
 
-def main():
-    print("=== Player Inventory System ===")
+def main() -> None:
+    print("=== Inventory System Analysis ===")
 
     alice = dict({
         "sword": {"quantity": 1, "category": "weapon", "rarity": "rare", "value": 500},

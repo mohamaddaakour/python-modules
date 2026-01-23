@@ -1,4 +1,4 @@
-def game_event_stream(total_events):
+def game_event_stream(total_events: int):
     players = ["alice", "bob", "charlie"]
     actions = ["killed monster", "found treasure", "leveled up"]
 
@@ -30,11 +30,15 @@ def prime_stream():
         number += 1
 
 
-def main():
+def main() -> None:
     print("=== Game Data Stream Processor ===")
+
+    print("")
 
     total_events = 1000
     print(f"Processing {total_events} game events...")
+
+    print("")
 
     high_level = 0
     treasure_events = 0
@@ -56,14 +60,20 @@ def main():
         if action == "leveled up":
             level_up_events += 1
 
-    print("...")
+    print("")
+
     print("=== Stream Analytics ===")
     print(f"Total events processed: {processed}")
     print(f"High-level players (10+): {high_level}")
     print(f"Treasure events: {treasure_events}")
     print(f"Level-up events: {level_up_events}")
+
+    print("")
+
     print("Memory usage: Constant (streaming)")
     print("Processing time: 0.045 seconds")
+
+    print("")
 
     print("=== Generator Demonstration ===")
 

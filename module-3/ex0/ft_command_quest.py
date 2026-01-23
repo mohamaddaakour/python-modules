@@ -1,6 +1,6 @@
 import sys
 
-def main():
+def main() -> None:
     print("=== Command Quest ===")
 
     program_name = sys.argv[0]

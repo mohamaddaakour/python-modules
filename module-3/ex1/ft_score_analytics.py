@@ -1,6 +1,6 @@
 import sys
 
-def main():
+def main() -> None:
     if len(sys.argv) == 1:
         print("=== Player Score Analytics ===")
         print("No scores provided. Usage: python3 ft_score_analytics.py <score1> <score2> ...")

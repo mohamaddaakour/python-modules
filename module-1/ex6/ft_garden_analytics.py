@@ -22,7 +22,8 @@ class FloweringPlant(Plant):
 
 
 class PrizeFlower(FloweringPlant):
-    def __init__(self, name: str, height: int, color: str, prize_points: int) -> None:
+    def __init__(self, name: str, height: int, color: str,
+                 prize_points: int) -> None:
         super().__init__(name, height, color)
         self.prize_points = prize_points
 

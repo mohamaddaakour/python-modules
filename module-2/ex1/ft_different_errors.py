@@ -22,7 +22,7 @@ def garden_operations() -> None:
 
     print("Testing FileNotFoundError...")
     try:
-        with open("missing.txt") as f:
+        with open("missing.txt"):
             pass
     except FileNotFoundError as e:
         print(f"Caught FileNotFoundError: {e}")
@@ -45,8 +45,8 @@ def garden_operations() -> None:
         y = 1 / 0
         print(x)
         print(y)
-    except (ValueError, ZeroDivisionError) as e:
-        print(f"Caught an error, but program continues!")
+    except (ValueError, ZeroDivisionError):
+        print("Caught an error, but program continues!")
 
 
 def test_error_types() -> None:

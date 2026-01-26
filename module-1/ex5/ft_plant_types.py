@@ -24,7 +24,8 @@ class Flower(Plant):
 
 # Tree subclass
 class Tree(Plant):
-    def __init__(self, name: str, height: int, age: int, trunk_diameter: int) -> None:
+    def __init__(self, name: str, height: int, age: int,
+                 trunk_diameter: int) -> None:
         super().__init__(name, height, age)
         self.trunk_diameter = trunk_diameter
 

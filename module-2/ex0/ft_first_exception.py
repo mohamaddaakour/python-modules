@@ -10,7 +10,7 @@ def ft_first_exception(temp_str: int) -> None:
             print(f"Error: {temp_str}°C is too cold for plants (min 0°C)")
         else:
             print(f"Error: {temp_str}°C is too hot for plants (max 40°C)")
-    except:
+    except Exception:
         print(f"Testing temperature: {temp_str}")
         print(f"Error: {temp_str} is not a valid number")
 
@@ -37,5 +37,6 @@ def test_temperature_input() -> None:
     print("")
 
     print("All tests completed - program didn't crash!")
+
 
 test_temperature_input()

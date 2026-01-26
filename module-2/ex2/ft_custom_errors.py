@@ -2,9 +2,11 @@ class GardenError(Exception):
     """Base class for garden-related errors"""
     pass
 
+
 class PlantError(GardenError):
     """Error related to plants"""
     pass
+
 
 class WaterError(GardenError):
     """Error related to watering"""
@@ -13,6 +15,7 @@ class WaterError(GardenError):
 
 def check_plant() -> None:
     raise PlantError("The tomato plant is wilting!")
+
 
 def check_water() -> None:
     raise WaterError("Not enough water in the tank!")
@@ -49,6 +52,7 @@ def test_custom_errors() -> None:
     print("")
 
     print("All custom error types work correctly!")
+
 
 if __name__ == "__main__":
     test_custom_errors()

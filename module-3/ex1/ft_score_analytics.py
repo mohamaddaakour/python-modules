@@ -1,9 +1,13 @@
 import sys
 
+
 def main() -> None:
     if len(sys.argv) == 1:
         print("=== Player Score Analytics ===")
-        print("No scores provided. Usage: python3 ft_score_analytics.py <score1> <score2> ...")
+        print(
+            "No scores provided. Usage: python3 ft_score_analytics.py "
+            "<score1> <score2> ..."
+        )
         return
 
     scores = []
@@ -11,7 +15,7 @@ def main() -> None:
     for arg in sys.argv[1:]:
         try:
             scores.append(int(arg))
-        except:
+        except Exception:
             print(f"Invalid score ignored: {arg}")
 
     if len(scores) == 0:
@@ -34,6 +38,7 @@ def main() -> None:
     print(f"High score: {high_score}")
     print(f"Low score: {low_score}")
     print(f"Score range: {score_range}")
+
 
 if __name__ == "__main__":
     main()

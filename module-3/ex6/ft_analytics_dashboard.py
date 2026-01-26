@@ -4,10 +4,14 @@ def main() -> None:
     print("")
 
     players = [
-        {"name": "alice", "score": 2300, "achievements": 5, "active": True, "region": "north"},
-        {"name": "bob", "score": 1800, "achievements": 3, "active": True, "region": "east"},
-        {"name": "charlie", "score": 2150, "achievements": 7, "active": True, "region": "central"},
-        {"name": "diana", "score": 2050, "achievements": 4, "active": False, "region": "north"},
+        {"name": "alice", "score": 2300, "achievements": 5,
+         "active": True, "region": "north"},
+        {"name": "bob", "score": 1800, "achievements": 3,
+         "active": True, "region": "east"},
+        {"name": "charlie", "score": 2150, "achievements": 7,
+         "active": True, "region": "central"},
+        {"name": "diana", "score": 2050, "achievements": 4,
+         "active": False, "region": "north"},
     ]
 
     achievements = [
@@ -75,7 +79,8 @@ def main() -> None:
     top_player = max(players, key=lambda p: p["score"])
     print(
         f"Top performer: {top_player['name']} "
-        f"({top_player['score']} points, {top_player['achievements']} achievements)"
+        f"({top_player['score']} points,"
+        f"{top_player['achievements']} achievements)"
     )
 
 

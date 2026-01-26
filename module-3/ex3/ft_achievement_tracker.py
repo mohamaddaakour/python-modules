@@ -3,8 +3,10 @@ def main() -> None:
 
     print("")
 
-    alice = set(["first_kill", "level_10", "treasure_hunter", "speed_demon", "first_kill"])
-    bob = set(["first_kill", "level_10", "boss_slayer", "collector", "collector"])
+    alice = set(["first_kill", "level_10", "treasure_hunter",
+                 "speed_demon", "first_kill"])
+    bob = set(["first_kill", "level_10", "boss_slayer",
+               "collector", "collector"])
     charlie = set([
         "level_10",
         "treasure_hunter",
@@ -48,6 +50,7 @@ def main() -> None:
 
     bob_unique = bob.difference(alice)
     print(f"Bob unique: {bob_unique}")
+
 
 if __name__ == "__main__":
     main()

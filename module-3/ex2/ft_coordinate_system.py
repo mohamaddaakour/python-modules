@@ -1,14 +1,16 @@
-import sys
 import math
+
 
 def distance_3d(p1: tuple[int, int, int], p2: tuple[int, int, int]) -> int:
     x1, y1, z1 = p1
     x2, y2, z2 = p2
     return math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2 + (z2 - z1) ** 2)
 
+
 def parse_coordinates(coord_str: str) -> tuple[int, int, int]:
     parts = coord_str.split(",")
     return tuple(int(part) for part in parts)
+
 
 def main() -> None:
     print("=== Game Coordinate System ===")
@@ -50,6 +52,7 @@ def main() -> None:
     x, y, z = parsed_position
     print(f"Player at x={x}, y={y}, z={z}")
     print(f"Coordinates: X={x}, Y={y}, Z={z}")
+
 
 if __name__ == "__main__":
     main()

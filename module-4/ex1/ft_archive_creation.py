@@ -19,5 +19,6 @@ def main():
     print("Data inscription complete. Storage unit sealed.")
     print("Archive 'new_discovery.txt' ready for long-term preservation.")
 
+
 if __name__ == "__main__":
     main()

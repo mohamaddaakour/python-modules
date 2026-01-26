@@ -28,7 +28,8 @@ def print_inventory(name: str, inventory: dict) -> None:
         total_price = data["quantity"] * data["value"]
         print(
             f"{item_name} ({data['category']}, {data['rarity']}): "
-            f"{data['quantity']}x @ {data['value']} gold each = {total_price} gold"
+            f"{data['quantity']}x @ {data['value']}"
+            f"gold each = {total_price} gold"
         )
 
     value = calculate_inventory_value(inventory)
@@ -48,14 +49,19 @@ def main() -> None:
     print("=== Inventory System Analysis ===")
 
     alice = dict({
-        "sword": {"quantity": 1, "category": "weapon", "rarity": "rare", "value": 500},
-        "potion": {"quantity": 5, "category": "consumable", "rarity": "common", "value": 50},
-        "shield": {"quantity": 1, "category": "armor", "rarity": "uncommon", "value": 200},
+        "sword": {"quantity": 1, "category": "weapon",
+                  "rarity": "rare", "value": 500},
+        "potion": {"quantity": 5, "category": "consumable",
+                   "rarity": "common", "value": 50},
+        "shield": {"quantity": 1, "category": "armor",
+                   "rarity": "uncommon", "value": 200},
     })
 
     bob = dict({
-        "potion": {"quantity": 0, "category": "consumable", "rarity": "common", "value": 50},
-        "magic_ring": {"quantity": 1, "category": "accessory", "rarity": "rare", "value": 300},
+        "potion": {"quantity": 0, "category": "consumable",
+                   "rarity": "common", "value": 50},
+        "magic_ring": {"quantity": 1, "category": "accessory",
+                       "rarity": "rare", "value": 300},
     })
 
     print_inventory("Alice", alice)

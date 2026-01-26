@@ -1,5 +1,6 @@
 import sys
 
+
 def main() -> None:
     print("=== Command Quest ===")
 
@@ -21,6 +22,7 @@ def main() -> None:
         index += 1
 
     print(f"Total arguments: {total_args}")
+
 
 if __name__ == "__main__":
     main()

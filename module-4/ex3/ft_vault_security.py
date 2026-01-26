@@ -19,5 +19,6 @@ def main():
     print("Vault automatically sealed upon completion")
     print("All vault operations completed with maximum security.")
 
+
 if __name__ == "__main__":
     main()

@@ -1,110 +1,91 @@
-# we have to check it
-
-def calculate_inventory_value(inventory: dict) -> int:
-    total = 0
-    for item in inventory.values():
-        total += item["quantity"] * item["value"]
-    return total
+# ft_inventory_system.py
+import sys
 
 
-def count_items(inventory: dict) -> int:
-    total = 0
-    for item in inventory.values():
-        total += item["quantity"]
-    return total
+def parse_inventory(args):
+    """Parse command line args like sword:1 potion:5 ... into a dictionary"""
+    inventory = dict()
+    for arg in args:
+        if ':' in arg:
+            name, qty = arg.split(':')
+            inventory[name] = int(qty)
+    return inventory
 
 
-def category_summary(inventory: dict) -> dict:
-    categories = dict()
-    for item in inventory.values():
-        category = item["category"]
-        categories[category] = categories.get(category, 0) + item["quantity"]
-    return categories
+def inventory_summary(inventory):
+    # calculate total items manually
+    total_items = 0
+    for qty in inventory.values():
+        total_items += qty
 
+    unique_items = len(inventory)
 
-def print_inventory(name: str, inventory: dict) -> None:
-    print(f"=== {name}'s Inventory ===")
-    for item_name, data in inventory.items():
-        total_price = data["quantity"] * data["value"]
-        print(
-            f"{item_name} ({data['category']}, {data['rarity']}): "
-            f"{data['quantity']}x @ {data['value']}"
-            f"gold each = {total_price} gold"
-        )
-
-    value = calculate_inventory_value(inventory)
-    items = count_items(inventory)
-    categories = category_summary(inventory)
-
-    print(f"Inventory value: {value} gold")
-    print(f"Item count: {items} items")
-
-    category_line = []
-    for cat, qty in categories.items():
-        category_line.append(f"{cat}({qty})")
-    print("Categories: " + ", ".join(category_line))
-
-
-def main() -> None:
     print("=== Inventory System Analysis ===")
+    print(f"Total items in inventory: {total_items}")
+    print(f"Unique item types: {unique_items}")
+    print("")
 
-    alice = dict({
-        "sword": {"quantity": 1, "category": "weapon",
-                  "rarity": "rare", "value": 500},
-        "potion": {"quantity": 5, "category": "consumable",
-                   "rarity": "common", "value": 50},
-        "shield": {"quantity": 1, "category": "armor",
-                   "rarity": "uncommon", "value": 200},
-    })
+    # === Current Inventory ===
+    # sort manually by quantity descending
+    items_list = list(inventory.items())
+    for i in range(len(items_list)):
+        for j in range(i+1, len(items_list)):
+            if items_list[j][1] > items_list[i][1]:
+                items_list[i], items_list[j] = items_list[j], items_list[i]
 
-    bob = dict({
-        "potion": {"quantity": 0, "category": "consumable",
-                   "rarity": "common", "value": 50},
-        "magic_ring": {"quantity": 1, "category": "accessory",
-                       "rarity": "rare", "value": 300},
-    })
+    print("=== Current Inventory ===")
+    for item, qty in items_list:
+        pct = (qty / total_items) * 100
+        unit = "unit" if qty == 1 else "units"
+        print(f"{item}: {qty} {unit} ({pct:.1f}%)")
+    print("")
 
-    print_inventory("Alice", alice)
+    # === Inventory Statistics ===
+    most_item = None
+    least_item = None
+    for item, qty in inventory.items():
+        if most_item is None or qty > most_item[1]:
+            most_item = (item, qty)
+        if least_item is None or qty < least_item[1]:
+            least_item = (item, qty)
+    print("=== Inventory Statistics ===")
+    print(f"Most abundant: {most_item[0]} ({most_item[1]} units)")
+    print(f"Least abundant: {least_item[0]} ({least_item[1]} units)")
+    print("")
 
-    print("=== Transaction: Alice gives Bob 2 potions ===")
-    if alice.get("potion")["quantity"] >= 2:
-        alice["potion"]["quantity"] -= 2
-        bob["potion"]["quantity"] += 2
-        print("Transaction successful!")
-    else:
-        print("Transaction failed!")
+    # === Item Categories ===
+    moderate = dict()
+    scarce = dict()
+    for item, qty in inventory.items():
+        if qty >= 4:
+            moderate[item] = qty
+        else:
+            scarce[item] = qty
+    print("=== Item Categories ===")
+    print(f"Moderate: {moderate}")
+    print(f"Scarce: {scarce}")
+    print("")
 
-    print("=== Updated Inventories ===")
-    print(f"Alice potions: {alice.get('potion')['quantity']}")
-    print(f"Bob potions: {bob.get('potion')['quantity']}")
+    # === Management Suggestions ===
+    restock = []
+    for item, qty in inventory.items():
+        if qty <= 1:
+            restock.append(item)
+    print("=== Management Suggestions ===")
+    print(f"Restock needed: {restock}")
+    print("")
 
-    print("=== Inventory Analytics ===")
+    # === Dictionary Properties Demo ===
+    print("=== Dictionary Properties Demo ===")
+    print(f"Dictionary keys: {list(inventory.keys())}")
+    print(f"Dictionary values: {list(inventory.values())}")
+    print(f"Sample lookup - 'sword' in inventory: {'sword' in inventory}")
 
-    alice_value = calculate_inventory_value(alice)
-    bob_value = calculate_inventory_value(bob)
 
-    if alice_value >= bob_value:
-        print(f"Most valuable player: Alice ({alice_value} gold)")
-    else:
-        print(f"Most valuable player: Bob ({bob_value} gold)")
-
-    alice_items = count_items(alice)
-    bob_items = count_items(bob)
-
-    if alice_items >= bob_items:
-        print(f"Most items: Alice ({alice_items} items)")
-    else:
-        print(f"Most items: Bob ({bob_items} items)")
-
-    rare_items = []
-    for name, data in alice.items():
-        if data["rarity"] == "rare":
-            rare_items.append(name)
-    for name, data in bob.items():
-        if data["rarity"] == "rare":
-            rare_items.append(name)
-
-    print("Rarest items: " + ", ".join(rare_items))
+def main():
+    args = sys.argv[1:]
+    inventory = parse_inventory(args)
+    inventory_summary(inventory)
 
 
 if __name__ == "__main__":

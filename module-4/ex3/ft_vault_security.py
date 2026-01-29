@@ -1,5 +1,8 @@
-def main():
+def main() -> None:
     print("=== CYBER ARCHIVES - VAULT SECURITY SYSTEM ===")
+
+    print("")
+
     print("Initiating secure vault access...")
     print("Vault connection established with failsafe protocols")
 
@@ -7,16 +10,23 @@ def main():
         vault.write("[CLASSIFIED] Quantum encryption keys recovered\n")
         vault.write("[CLASSIFIED] Archive integrity: 100%\n")
 
+    print("")
+
     print("SECURE EXTRACTION:")
     print("[CLASSIFIED] Quantum encryption keys recovered")
     print("[CLASSIFIED] Archive integrity: 100%")
 
     with open("secure_preservation.txt", "w") as vault:
-        vault.write("{[}CLASSIFIED{]} New security protocols archived\n")
+        vault.write("[CLASSIFIED] New security protocols archived\n")
+
+    print("")
 
     print("SECURE PRESERVATION:")
     print("[CLASSIFIED] New security protocols archived")
     print("Vault automatically sealed upon completion")
+
+    print("")
+
     print("All vault operations completed with maximum security.")
 
 

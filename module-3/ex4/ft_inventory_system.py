@@ -1,9 +1,8 @@
-# ft_inventory_system.py
 import sys
 
 
+# parse the inventory in a dictionary
 def parse_inventory(args):
-    """Parse command line args like sword:1 potion:5 ... into a dictionary"""
     inventory = dict()
     for arg in args:
         if ':' in arg:
@@ -13,7 +12,7 @@ def parse_inventory(args):
 
 
 def inventory_summary(inventory):
-    # calculate total items manually
+    # calculate total items
     total_items = 0
     for qty in inventory.values():
         total_items += qty
@@ -25,8 +24,7 @@ def inventory_summary(inventory):
     print(f"Unique item types: {unique_items}")
     print("")
 
-    # === Current Inventory ===
-    # sort manually by quantity descending
+    # sort by quantity descending
     items_list = list(inventory.items())
     for i in range(len(items_list)):
         for j in range(i+1, len(items_list)):
@@ -40,7 +38,6 @@ def inventory_summary(inventory):
         print(f"{item}: {qty} {unit} ({pct:.1f}%)")
     print("")
 
-    # === Inventory Statistics ===
     most_item = None
     least_item = None
     for item, qty in inventory.items():
@@ -53,7 +50,6 @@ def inventory_summary(inventory):
     print(f"Least abundant: {least_item[0]} ({least_item[1]} units)")
     print("")
 
-    # === Item Categories ===
     moderate = dict()
     scarce = dict()
     for item, qty in inventory.items():
@@ -64,18 +60,18 @@ def inventory_summary(inventory):
     print("=== Item Categories ===")
     print(f"Moderate: {moderate}")
     print(f"Scarce: {scarce}")
+
     print("")
 
-    # === Management Suggestions ===
     restock = []
     for item, qty in inventory.items():
         if qty <= 1:
             restock.append(item)
     print("=== Management Suggestions ===")
     print(f"Restock needed: {restock}")
+
     print("")
 
-    # === Dictionary Properties Demo ===
     print("=== Dictionary Properties Demo ===")
     print(f"Dictionary keys: {list(inventory.keys())}")
     print(f"Dictionary values: {list(inventory.values())}")

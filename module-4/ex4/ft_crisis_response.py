@@ -23,11 +23,17 @@ def main() -> None:
     print("CRISIS ALERT: Attempting access to 'lost_archive.txt'...")
     access_archive("lost_archive.txt")
 
+    print("")
+
     print("CRISIS ALERT: Attempting access to 'classified_vault.txt'...")
     access_archive("classified_vault.txt")
 
+    print("")
+
     print("ROUTINE ACCESS: Attempting access to 'standard_archive.txt'...")
     access_archive("standard_archive.txt")
+
+    print("")
 
     print("All crisis scenarios handled successfully. Archives secure.")
 

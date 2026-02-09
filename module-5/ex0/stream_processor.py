@@ -3,7 +3,7 @@ from typing import Any, List, Optional
 
 # to use abstract method we have to inherit from ABC
 class DataProcessor(ABC):
-    
+
     def __init__(self) -> None:
         super().__init__()
 
@@ -17,7 +17,7 @@ class DataProcessor(ABC):
 
     def format_output(self, result: str) -> str:
         return f"Output: {result}"
-    
+
 
 class NumericProcessor(DataProcessor):
     def __init__(self) -> None:
@@ -44,7 +44,7 @@ class NumericProcessor(DataProcessor):
 
         except Exception as e:
             return f"Numeric processing error: {e}"
-        
+
 
 class TextProcessor(DataProcessor):
     def __init__(self) -> None:
@@ -147,6 +147,8 @@ def main() -> None:
     for i, (processor, data) in enumerate(zip(processors, data_samples), start=1):
         result = processor.process(data)
         print(f"Result {i}: {result}")
+
+    print("")
 
     print("Foundation systems online. Nexus ready for advanced streams.")
 

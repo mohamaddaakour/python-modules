@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 from typing import Any, List, Dict, Optional, Union
 
 
+# abstract class
 class DataStream(ABC):
     # constructor
     def __init__(self, stream_id: str) -> None:
@@ -22,7 +23,7 @@ class DataStream(ABC):
 class SensorStream(DataStream):
     def __init__(self, stream_id: str) -> None:
         super().__init__(stream_id)
-        print(f"Initializing Sensor Stream...\nStream ID: {self.stream_id}, Type: Environmental Data")
+        print(f"\nInitializing Sensor Stream...\nStream ID: {self.stream_id}, Type: Environmental Data")
 
     def process_batch(self, data_batch: List[Any]) -> str:
         try:
@@ -42,12 +43,12 @@ class SensorStream(DataStream):
 class TransactionStream(DataStream):
     def __init__(self, stream_id: str) -> None:
         super().__init__(stream_id)
-        print(f"Initializing Transaction Stream...\nStream ID: {self.stream_id}, Type: Financial Data")
+        print(f"\nInitializing Transaction Stream...\nStream ID: {self.stream_id}, Type: Financial Data")
 
     def process_batch(self, data_batch: List[Any]) -> str:
         try:
             self.processed_count = len(data_batch)
-            net_flow = sum([x['amount'] if x['type']=='buy' else -x['amount'] 
+            net_flow = sum([x['amount'] if x['type']=='buy' else -x['amount']
                             for x in data_batch if isinstance(x, dict) and 'type' in x and 'amount' in x])
             return f"Transaction analysis: {self.processed_count} operations, net flow: {net_flow:+} units"
         except Exception as e:
@@ -61,7 +62,7 @@ class TransactionStream(DataStream):
 class EventStream(DataStream):
     def __init__(self, stream_id: str) -> None:
         super().__init__(stream_id)
-        print(f"Initializing Event Stream...\nStream ID: {self.stream_id}, Type: System Events")
+        print(f"\nInitializing Event Stream...\nStream ID: {self.stream_id}, Type: System Events")
 
     def process_batch(self, data_batch: List[Any]) -> str:
         try:
@@ -84,6 +85,8 @@ class StreamProcessor:
     def process_all(self, batches: List[List[Any]]) -> None:
         print("\n=== Polymorphic Stream Processing ===")
         print("Processing mixed stream types through unified interface...")
+
+        print("")
 
         for i, (stream, batch) in enumerate(zip(self.streams, batches), start=1):
             result = stream.process_batch(batch)
@@ -121,6 +124,8 @@ def main() -> None:
     processor = StreamProcessor([sensor_stream, transaction_stream, event_stream])
     processor.process_all([sensor_batch, transaction_batch, event_batch])
     processor.filter_streams("High-priority")
+
+    print("")
 
     print("All streams processed successfully. Nexus throughput optimal.")
 

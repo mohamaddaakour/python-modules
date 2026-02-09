@@ -11,8 +11,8 @@ def main() -> None:
             print("")
 
             print("RECOVERED DATA:")
-            content = file.read()
-            print(content.strip())
+            for i, line in enumerate(file):
+                print(f"[FRAGMENT {i:03}] {line.strip()}")
 
         print("")
 

@@ -6,7 +6,6 @@ import time
 
 
 class StageProtocol(Protocol):
-    """Defines the 'shape' of a pipeline stage."""
     def process(self, data: Any) -> Any:
         ...
 

@@ -11,16 +11,13 @@ class DataStream(ABC):
 
     @abstractmethod
     def process_batch(self, data_batch: List[Any]) -> str:
-        """Process a batch of data specific to the stream type."""
         pass
 
     def filter_data(self, data_batch: List[Any],
                     criteria: Optional[str] = None) -> List[Any]:
-        """Default filter logic (returns original batch)."""
         return data_batch
 
     def get_stats(self) -> Dict[str, Union[str, int, float]]:
-        """Return processing statistics."""
         return {"stream_id": self.stream_id,
                 "processed_count": self.processed_count}
 

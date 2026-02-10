@@ -3,8 +3,6 @@ from typing import Any, List
 
 
 class DataProcessor(ABC):
-    """Base class for all data processors."""
-
     def __init__(self) -> None:
         super().__init__()
 

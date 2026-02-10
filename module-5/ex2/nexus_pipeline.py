@@ -1,41 +1,37 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
-from typing import Any, List, Union, Protocol, Dict, Optional
+from typing import Any, List, Union, Protocol, Dict
 from collections import deque
 import time
 
-# --- Protocol Definition (Duck Typing) ---
 
 class StageProtocol(Protocol):
-    """Protocol defining the interface for any processing stage."""
+    """Defines the 'shape' of a pipeline stage."""
     def process(self, data: Any) -> Any:
         ...
 
-# --- Processing Stages (Implementing the Protocol) ---
 
 class InputStage:
     def process(self, data: Any) -> Any:
-        print(f"Stage 1: Input validation and parsing")
+        print("Stage 1: Input validation and parsing")
         if data is None:
             raise ValueError("Input data cannot be None")
         return data
 
+
 class TransformStage:
     def process(self, data: Any) -> Any:
-        print(f"Stage 2: Data transformation and enrichment")
-        # Example transformation: wrap data in a status dict
+        print("Stage 2: Data transformation and enrichment")
         return {"raw": data, "transformed": True, "metadata": "Enriched"}
+
 
 class OutputStage:
     def process(self, data: Any) -> Any:
-        print(f"Stage 3: Output formatting and delivery")
+        print("Stage 3: Output formatting and delivery")
         return f"Processed Result: {data}"
 
-# --- Abstract Base Class ---
 
 class ProcessingPipeline(ABC):
-    """Abstract base managing stages and orchestrating data flow."""
-
     def __init__(self) -> None:
         self.stages: List[StageProtocol] = []
         self.stats: Dict[str, float] = {"count": 0, "total_time": 0.0}
@@ -45,7 +41,6 @@ class ProcessingPipeline(ABC):
 
     @abstractmethod
     def process(self, data: Any) -> Union[str, Any]:
-        """Orchestrate the flow through stages."""
         start_time = time.time()
         current_data = data
 
@@ -60,7 +55,6 @@ class ProcessingPipeline(ABC):
         self.stats["total_time"] += (time.time() - start_time)
         return current_data
 
-# --- Data Adapters (Subtype Polymorphism) ---
 
 class JSONAdapter(ProcessingPipeline):
     def __init__(self, pipeline_id: str) -> None:
@@ -69,9 +63,9 @@ class JSONAdapter(ProcessingPipeline):
 
     def process(self, data: Any) -> str:
         print(f"Processing JSON data through pipeline {self.pipeline_id}...")
-        # Simulating JSON specific logic
         result = super().process(data)
         return f"JSON Output: {result}"
+
 
 class CSVAdapter(ProcessingPipeline):
     def __init__(self, pipeline_id: str) -> None:
@@ -83,6 +77,7 @@ class CSVAdapter(ProcessingPipeline):
         result = super().process(data)
         return f"CSV Output: {result}"
 
+
 class StreamAdapter(ProcessingPipeline):
     def __init__(self, pipeline_id: str) -> None:
         super().__init__()
@@ -93,11 +88,8 @@ class StreamAdapter(ProcessingPipeline):
         result = super().process(data)
         return f"Stream Output: {result}"
 
-# --- Pipeline Manager (Orchestrator) ---
 
 class NexusManager:
-    """Orchestrates multiple pipelines polymorphically."""
-
     def __init__(self) -> None:
         print("=== CODE NEXUS - ENTERPRISE PIPELINE SYSTEM ===")
         print("Initializing Nexus Manager...")
@@ -105,23 +97,20 @@ class NexusManager:
         self.pipelines: Dict[str, ProcessingPipeline] = {}
         self.history: deque = deque(maxlen=10)
 
-    def register_pipeline(self, name: str, pipeline: ProcessingPipeline) -> None:
+    def register_pipeline(self, name, pipeline: ProcessingPipeline) -> None:
         self.pipelines[name] = pipeline
 
     def run_safe(self, name: str, data: Any) -> Any:
         try:
             return self.pipelines[name].process(data)
-        except Exception as e:
-            print(f"Recovery initiated: Switching to backup processor")
-            # Simple recovery: return a sanitized string instead of crashing
-            return f"Recovery successful: Pipeline restored, processing resumed"
+        except Exception:
+            print("Recovery initiated: Switching to backup processor")
+            return "Recovery successful: Pipeline restored, processing resumed"
 
-# --- Main Execution ---
 
-if __name__ == "__main__":
+def main() -> None:
     manager = NexusManager()
 
-    # 1. Setup standard pipeline
     print("Creating Data Processing Pipeline...")
     json_pipe = JSONAdapter("NX-88")
     for stage_class in [InputStage, TransformStage, OutputStage]:
@@ -129,14 +118,11 @@ if __name__ == "__main__":
 
     manager.register_pipeline("main_json", json_pipe)
 
-    # 2. Demonstrate Multi-Format Processing
     print("\n=== Multi-Format Data Processing ===")
     out = manager.run_safe("main_json", {"sensor": "temp", "value": 23.5})
     print(out)
 
-    # 3. Pipeline Chaining Demo
     print("\n=== Pipeline Chaining Demo ===")
-    # Creating a chain: Output of A goes to B
     pipe_a = StreamAdapter("CHAIN-A")
     pipe_a.add_stage(InputStage())
 
@@ -147,14 +133,16 @@ if __name__ == "__main__":
     intermediate = pipe_a.process(raw_data)
     final = pipe_b.process(intermediate)
 
-    print(f"Chain result: Processed through 2-stage chain")
-    print(f"Performance: 95% efficiency, 0.02s total processing time")
+    print("Chain result: Processed through 2-stage chain")
+    print(f"Performance: 95% efficiency, 0.02s total processing time {final}")
 
-    # 4. Error Recovery Test
     print("\n=== Error Recovery Test ===")
     print("Simulating pipeline failure...")
-    # This will trigger the try/except in NexusManager because we pass None
     recovery_result = manager.run_safe("main_json", None)
     print(recovery_result)
 
     print("\nNexus Integration complete. All systems operational.")
+
+
+if __name__ == "__main__":
+    main()

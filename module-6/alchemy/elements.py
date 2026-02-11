@@ -4,7 +4,7 @@ def create_fire():
 def create_water():
     return "Water element created"
 
-def create_eartch():
+def create_earth():
     return "Earth element created"
 
 def create_air():

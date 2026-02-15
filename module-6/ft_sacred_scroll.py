@@ -1,13 +1,14 @@
 import alchemy.elements
 import alchemy.__init__
 
+
 def main():
     print("\n===Sacred Scroll Mastery ===\n")
 
     print("Testing direct module access:")
-    print(f"alchemy.elements.create_fire(): {alchemy.elements.create_fire()}")
-    print(f"alchemy.elements.create_water(): {alchemy.elements.create_water()}")
-    print(f"alchemy.elements.create_earth(): {alchemy.elements.create_earth()}")
+    print(f"alchemy.elements.create_fire():{alchemy.elements.create_fire()}")
+    print(f"alchemy.elements.create_water():{alchemy.elements.create_water()}")
+    print(f"alchemy.elements.create_earth():{alchemy.elements.create_earth()}")
     print(f"alchemy.elements.create_air(): {alchemy.elements.create_air()}")
 
     print("")
@@ -19,11 +20,9 @@ def main():
     try:
         print(f"alchemy.create_earth(): {alchemy.__init__.create_earth()}")
         print(f"alchemy.create_air(): {alchemy.__init__.create_air()}")
-    except:
-        print(f"alchemy.create_earth(): AttributeError - not exposed")
-        print(f"alchemy.create_air(): AttributeError - not exposed")
-    
-
+    except Exception:
+        print("alchemy.create_earth(): AttributeError - not exposed")
+        print("alchemy.create_air(): AttributeError - not exposed")
 
     print("")
 

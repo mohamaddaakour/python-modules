@@ -1,12 +1,14 @@
 from ex0.Card import Card
 
+
 class SpellCard(Card):
-    def __init__(self, name: str, cost: int, rarity: str, effect_type: str) -> None:
+    def __init__(self, name: str, cost: int, rarity: str,
+                 effect_type: str) -> None:
         super().__init__(name, cost, rarity)
         self._effect_type = effect_type
 
     def play(self, game_state: dict) -> dict:
-    
+
         effect_descriptions = {
             'damage': f'Deal {self._cost} damage to target',
             'heal': f'Heal {self._cost} health to target',
@@ -31,7 +33,7 @@ class SpellCard(Card):
                 target_names.append(target._name)
             else:
                 target_names.append(str(target))
-        
+
         return {
             'spell': self._name,
             'effect_type': self._effect_type,
@@ -39,11 +41,11 @@ class SpellCard(Card):
             'resolved': True,
             'consumed': True
         }
-    
+
     def get_card_info(self) -> dict:
         info = super().get_card_info()
-        
+
         info['type'] = 'Spell'
         info['effect_type'] = self._effect_type
-        
+
         return info

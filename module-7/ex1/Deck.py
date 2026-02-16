@@ -2,6 +2,7 @@ from ex0.Card import Card
 from typing import Optional
 import random
 
+
 class Deck:
     def __init__(self) -> None:
         self._cards: list[Card] = []
@@ -65,7 +66,3 @@ class Deck:
     # this will change the behavior of len built in function
     def __len__(self) -> int:
         return len(self._cards)
-
-    # def __repr__(self) -> str:
-    #     stats = self.get_deck_stats()
-    #     return f"Deck({stats['total_cards']} cards)"

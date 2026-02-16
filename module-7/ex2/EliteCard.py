@@ -5,7 +5,10 @@ from ex2.Magical import Magical
 
 class EliteCard(Card, Combatable, Magical):
 
-    def __init__(self, name: str, cost: int, rarity, attack_power: int = 5, defense_rating: int = 5, mana_pool: int = 10):
+    def __init__(self, name: str,
+                 cost: int, rarity,
+                 attack_power: int = 5, defense_rating: int = 5,
+                 mana_pool: int = 10):
         super().__init__(name, cost, rarity)
         self._attack_power = attack_power
         self._defense_rating = defense_rating
@@ -13,7 +16,8 @@ class EliteCard(Card, Combatable, Magical):
         self._max_health = 10
         self._mana_pool = mana_pool
         self._max_mana = mana_pool
-        self._available_spells = ['Fireball', 'Lightning Bolt', 'Shield', 'Heal']
+        self._available_spells = ['Fireball',
+                                  'Lightning Bolt', 'Shield', 'Heal']
         self._rarity = rarity
 
     def play(self, game_state: dict) -> dict:

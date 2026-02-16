@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-# abstract strategy interface
+
 class GameStrategy(ABC):
 
     @abstractmethod

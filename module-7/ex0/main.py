@@ -1,5 +1,6 @@
 from ex0.CreatureCard import CreatureCard
 
+
 def main():
     print("\n=== DataDeck Card Foundation ===\n")
 
@@ -59,7 +60,6 @@ def main():
     print("")
 
     print("Abstract pattern successfully demonstrated!")
-
 
 
 main()

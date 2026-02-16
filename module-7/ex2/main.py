@@ -6,7 +6,9 @@ def main():
     print("=== DataDeck Ability System ===\n")
 
     # elite card instance
-    elite = EliteCard("Arcane Warrior", cost=5, attack_power=5, defense_rating=3, mana_pool=10, rarity=1)
+    elite = EliteCard("Arcane Warrior",
+                      cost=5, attack_power=5,
+                      defense_rating=3, mana_pool=10, rarity=1)
 
     print("EliteCard capabilities:")
 
@@ -41,6 +43,7 @@ def main():
     print()
 
     print("Multiple interface implementation successful!")
+
 
 if __name__ == "__main__":
     main()

@@ -1,7 +1,9 @@
 from abc import ABC, abstractmethod
 
+
 class Card(ABC):
-    def __init__(self, name: str, cost: int, rarity: str) -> None:
+    def __init__(self, name: str, cost:
+                 int, rarity: str) -> None:
         self._name = name
         self._cost = cost
         self._rarity = rarity

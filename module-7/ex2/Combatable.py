@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 # abstract interface
 class Combatable(ABC):
 

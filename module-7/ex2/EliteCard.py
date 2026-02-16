@@ -5,8 +5,8 @@ from ex2.Magical import Magical
 
 class EliteCard(Card, Combatable, Magical):
 
-    def __init__(self, name: str, cost: int, attack_power: int = 5, defense_rating: int = 5, mana_pool: int = 10):
-        super().__init__(name, cost)
+    def __init__(self, name: str, cost: int, rarity, attack_power: int = 5, defense_rating: int = 5, mana_pool: int = 10):
+        super().__init__(name, cost, rarity)
         self._attack_power = attack_power
         self._defense_rating = defense_rating
         self._health = 10
@@ -14,6 +14,7 @@ class EliteCard(Card, Combatable, Magical):
         self._mana_pool = mana_pool
         self._max_mana = mana_pool
         self._available_spells = ['Fireball', 'Lightning Bolt', 'Shield', 'Heal']
+        self._rarity = rarity
 
     def play(self, game_state: dict) -> dict:
         return {
@@ -37,7 +38,7 @@ class EliteCard(Card, Combatable, Magical):
         damage_blocked = min(self._defense_rating, incoming_damage)
         damage_taken = incoming_damage - damage_blocked
         self._health = max(0, self._health - damage_taken)
-        
+
         return {
             'defender': self._name,
             'damage_taken': damage_taken,
@@ -61,9 +62,9 @@ class EliteCard(Card, Combatable, Magical):
             'Shield': 2,
             'Heal': 3
         }
-        
+
         mana_cost = mana_cost_map.get(spell_name, 5)
-        
+
         if spell_name not in self._available_spells:
             return {
                 'caster': self._name,
@@ -71,7 +72,7 @@ class EliteCard(Card, Combatable, Magical):
                 'success': False,
                 'reason': 'Spell not available'
             }
-        
+
         if self._mana_pool < mana_cost:
             return {
                 'caster': self._name,
@@ -79,9 +80,9 @@ class EliteCard(Card, Combatable, Magical):
                 'success': False,
                 'reason': 'Insufficient mana'
             }
-        
+
         self._mana_pool -= mana_cost
-        
+
         return {
             'caster': self._name,
             'spell': spell_name,
@@ -92,7 +93,7 @@ class EliteCard(Card, Combatable, Magical):
     def channel_mana(self, amount: int) -> dict:
         actual_channeled = min(amount, self._max_mana - self._mana_pool)
         self._mana_pool += actual_channeled
-        
+
         return {
             'channeled': actual_channeled,
             'total_mana': self._mana_pool

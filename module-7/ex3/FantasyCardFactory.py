@@ -1,142 +1,149 @@
-import sys
-import os
-import random
+"""
+Fixed FantasyCardFactory implementation with create_themed_deck method
+"""
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-try:
-    from ex0.Card import Card
-except ModuleNotFoundError:
-    from Card import Card
-
-try:
-    from ex1.SpellCard import SpellCard
-except ModuleNotFoundError:
-    from SpellCard import SpellCard
-
-try:
-    from ex3.CardFactory import CardFactory
-except ModuleNotFoundError:
-    from CardFactory import CardFactory
-
-
-class CreatureCard(Card):
-    
-    def __init__(self, name: str, cost: int, attack_power: int = 3):
-        super().__init__(name, cost)
-        self._attack_power = attack_power
-    
-    def play(self, game_state: dict) -> dict:
-        return {
-            'card_played': self._name,
-            'cost': self._cost,
-            'type': 'creature',
-            'attack_power': self._attack_power
-        }
-
-
-class ArtifactCard(Card):
-    def __init__(self, name: str, cost: int, ability: str = "mana"):
-        super().__init__(name, cost)
-        self._ability = ability
-    
-    def play(self, game_state: dict) -> dict:
-        return {
-            'card_played': self._name,
-            'cost': self._cost,
-            'type': 'artifact',
-            'ability': self._ability
-        }
+from ex0.Card import Card
+from ex0.CreatureCard import CreatureCard
+from ex3.SpellCard import SpellCard
+from ex1.ArtifactCard import ArtifactCard
+from ex3.CardFactory import CardFactory
 
 
 class FantasyCardFactory(CardFactory):
-
     def __init__(self):
-        """Initialize the fantasy card factory with card templates."""
-        self._creature_templates = {
-            'dragon': {'cost': 5, 'attack': 3, 'names': ['Fire Dragon', 'Ice Dragon', 'Shadow Dragon']},
-            'goblin': {'cost': 2, 'attack': 2, 'names': ['Goblin Warrior', 'Goblin Scout', 'Goblin Shaman']}
+        self.creature_templates = {
+            'dragon': {
+                'attack': 7,
+                'defense': 5,
+                'cost': 6,
+                'creature_type': 'flying'
+            },
+            'goblin': {
+                'attack': 2,
+                'defense': 1,
+                'cost': 1,
+                'creature_type': 'ground'
+            }
         }
-        
-        self._spell_templates = {
-            'fireball': {'cost': 3, 'effect': 'damage', 'names': ['Fireball', 'Greater Fireball']},
+
+        # Spell templates - FIX: Added 'effect_type' field
+        self.spell_templates = {
+            'fireball': {
+                'cost': 3,
+                'effect': 'Deal 4 damage to target',
+                'effect_type': 'damage'
+            }
         }
-        
-        self._artifact_templates = {
-            'mana_ring': {'cost': 2, 'ability': 'mana', 'names': ['Mana Ring', 'Ring of Power']},
-            'staff': {'cost': 4, 'ability': 'spell_power', 'names': ['Magic Staff', 'Staff of Wisdom']},
-            'crystal': {'cost': 3, 'ability': 'card_draw', 'names': ['Crystal Orb', 'Scrying Crystal']}
+
+        # Artifact templates
+        self.artifact_templates = {
+            'mana_ring': {
+                'cost': 2,
+                'effect': 'Gain 1 mana per turn',
+                'durability': 5
+            },
+            'staff': {
+                'cost': 3,
+                'effect': 'Increase spell power by 2',
+                'durability': 4
+            },
+            'crystal': {
+                'cost': 1,
+                'effect': 'Store 3 mana',
+                'durability': 3
+            }
         }
 
-    def create_creature(self, name_or_power: str | int | None = None) -> Card:
-        if isinstance(name_or_power, str):
-            template_key = name_or_power.lower()
-            if template_key in self._creature_templates:
-                template = self._creature_templates[template_key]
-                name = random.choice(template['names'])
-                return CreatureCard(name, template['cost'], template['attack'])
-        
-        # Default: random creature
-        creature_type = random.choice(list(self._creature_templates.keys()))
-        template = self._creature_templates[creature_type]
-        name = random.choice(template['names'])
-        return CreatureCard(name, template['cost'], template['attack'])
+    def create_creature(self, creature_type: str) -> CreatureCard:
+        """Create a creature card"""
+        if creature_type not in self.creature_templates:
+            raise ValueError(f"Unknown creature type: {creature_type}")
 
-    def create_spell(self, name_or_power: str | int | None = None) -> Card:
-        if isinstance(name_or_power, str):
-            template_key = name_or_power.lower()
-            if template_key in self._spell_templates:
-                template = self._spell_templates[template_key]
-                name = random.choice(template['names'])
-                return SpellCard(name, template['cost'], template['effect'])
-        
-        # Default: random spell
-        spell_type = random.choice(list(self._spell_templates.keys()))
-        template = self._spell_templates[spell_type]
-        name = random.choice(template['names'])
-        return SpellCard(name, template['cost'], template['effect'])
+        template = self.creature_templates[creature_type]
+        return CreatureCard(
+            creature_type,
+            template['cost'],
+            template['attack'],
+            template['defense'],
+            template['creature_type']
+        )
 
-    def create_artifact(self, name_or_power: str | int | None = None) -> Card:
-        if isinstance(name_or_power, str):
-            template_key = name_or_power.lower()
-            if template_key in self._artifact_templates:
-                template = self._artifact_templates[template_key]
-                name = random.choice(template['names'])
-                return ArtifactCard(name, template['cost'], template['ability'])
-        
-        # Default: random artifact
-        artifact_type = random.choice(list(self._artifact_templates.keys()))
-        template = self._artifact_templates[artifact_type]
-        name = random.choice(template['names'])
-        return ArtifactCard(name, template['cost'], template['ability'])
+    def create_spell(self, spell_type: str) -> SpellCard:
+        """Create a spell card - FIXED VERSION"""
+        if spell_type not in self.spell_templates:
+            raise ValueError(f"Unknown spell type: {spell_type}")
 
-    def create_themed_deck(self, size: int) -> dict:
+        template = self.spell_templates[spell_type]
+        # FIX: Pass all 4 required arguments including effect_type
+        return SpellCard(
+            spell_type,
+            template['cost'],
+            template['effect'],
+            template['effect_type']
+        )
+
+    def create_artifact(self, artifact_type: str) -> ArtifactCard:
+        """Create an artifact card"""
+        if artifact_type not in self.artifact_templates:
+            raise ValueError(f"Unknown artifact type: {artifact_type}")
+
+        template = self.artifact_templates[artifact_type]
+        return ArtifactCard(
+            artifact_type,
+            template['cost'],
+            template['effect'],
+            template['durability']
+        )
+
+    def create_themed_deck(self, theme: str) -> list:
+        """
+        Create a themed deck of cards.
+
+        Args:
+            theme: The theme name (e.g., 'aggressive', 'defensive', 'balanced')
+
+        Returns:
+            List of Card objects forming a themed deck
+        """
         deck = []
-        composition = {'creatures': 0, 'spells': 0, 'artifacts': 0}
-        
-        # Typical distribution: 50% creatures, 30% spells, 20% artifacts
-        for i in range(size):
-            roll = random.random()
-            if roll < 0.5:
-                deck.append(self.create_creature())
-                composition['creatures'] += 1
-            elif roll < 0.8:
-                deck.append(self.create_spell())
-                composition['spells'] += 1
-            else:
-                deck.append(self.create_artifact())
-                composition['artifacts'] += 1
-        
-        return {
-            'deck': deck,
-            'size': size,
-            'composition': composition,
-            'theme': 'fantasy'
-        }
+
+        if theme == 'aggressive':
+            # Aggressive deck: more creatures and damage spells
+            deck.append(self.create_creature('dragon'))
+            deck.append(self.create_creature('goblin'))
+            deck.append(self.create_creature('goblin'))
+            deck.append(self.create_spell('fireball'))
+            deck.append(self.create_spell('fireball'))
+            deck.append(self.create_artifact('staff'))
+
+        elif theme == 'defensive':
+            # Defensive deck: more artifacts and fewer aggressive creatures
+            deck.append(self.create_creature('dragon'))
+            deck.append(self.create_artifact('mana_ring'))
+            deck.append(self.create_artifact('crystal'))
+            deck.append(self.create_artifact('staff'))
+            deck.append(self.create_spell('fireball'))
+
+        elif theme == 'balanced':
+            # Balanced deck: mix of everything
+            deck.append(self.create_creature('dragon'))
+            deck.append(self.create_creature('goblin'))
+            deck.append(self.create_spell('fireball'))
+            deck.append(self.create_artifact('mana_ring'))
+            deck.append(self.create_artifact('crystal'))
+
+        else:
+            # Default deck
+            deck.append(self.create_creature('goblin'))
+            deck.append(self.create_spell('fireball'))
+            deck.append(self.create_artifact('crystal'))
+
+        return deck
 
     def get_supported_types(self) -> dict:
+        """Return all supported card types"""
         return {
-            'creatures': list(self._creature_templates.keys()),
-            'spells': list(self._spell_templates.keys()),
-            'artifacts': list(self._artifact_templates.keys())
+            'creatures': list(self.creature_templates.keys()),
+            'spells': list(self.spell_templates.keys()),
+            'artifacts': list(self.artifact_templates.keys())
         }

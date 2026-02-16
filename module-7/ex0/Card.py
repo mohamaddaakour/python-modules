@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-from typing import Dict
 
 class Card(ABC):
     def __init__(self, name: str, cost: int, rarity: str) -> None:
@@ -17,7 +16,7 @@ class Card(ABC):
             "cost": self._cost,
             "rarity": self._rarity
         }
-    
+
     def is_playable(self, available_mana: int) -> bool:
         if available_mana >= self._cost:
             return True

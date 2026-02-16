@@ -1,33 +1,18 @@
-"""
-GameEngine - Game orchestrator
-Coordinates the game using a factory and strategy
-"""
 
-import sys
-import os
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-try:
-    from ex3.CardFactory import CardFactory
-    from ex3.GameStrategy import GameStrategy
-except ModuleNotFoundError:
-    from CardFactory import CardFactory
-    from GameStrategy import GameStrategy
+from ex3.CardFactory import CardFactory
+from ex3.GameStrategy import GameStrategy
+
+# try:
+
+# except ModuleNotFoundError:
+#     from CardFactory import CardFactory
+#     from GameStrategy import GameStrategy
 
 
 class GameEngine:
-    """
-    Game engine that orchestrates the game.
-    
-    Uses:
-    - CardFactory: To create cards
-    - GameStrategy: To execute turns
-    
-    This demonstrates the power of combining Abstract Factory
-    and Strategy patterns for flexible game design.
-    """
-
     def __init__(self):
         """Initialize the game engine."""
         self._factory = None
@@ -41,50 +26,50 @@ class GameEngine:
     def configure_engine(self, factory: CardFactory, strategy: GameStrategy) -> None:
         """
         Configure the game engine with a factory and strategy.
-        
+
         Args:
             factory: CardFactory instance for creating cards
             strategy: GameStrategy instance for game decisions
         """
         self._factory = factory
         self._strategy = strategy
-        
+
         # Initialize a starting hand with specific cards for demo
         # Create a Fire Dragon (5 cost)
         dragon = factory.create_creature('dragon')
         dragon._name = 'Fire Dragon'
         dragon._cost = 5
-        
+
         # Create a Goblin Warrior (2 cost)
         goblin = factory.create_creature('goblin')
         goblin._name = 'Goblin Warrior'
         goblin._cost = 2
-        
+
         # Create Lightning Bolt spell (3 cost)
         spell = factory.create_spell('fireball')
         spell._name = 'Lightning Bolt'
         spell._cost = 3
-        
+
         self._hand = [dragon, goblin, spell]
         self._cards_created = len(self._hand)
 
     def simulate_turn(self) -> dict:
         """
         Simulate a single turn using the configured strategy.
-        
+
         Returns:
             dict: Turn simulation results
         """
         if not self._factory or not self._strategy:
             return {'error': 'Engine not configured'}
-        
+
         # Execute turn using strategy
         turn_result = self._strategy.execute_turn(self._hand, self._battlefield)
-        
+
         # Update game state
         self._turns_simulated += 1
         self._total_damage += turn_result.get('damage_dealt', 0)
-        
+
         # Move played cards to battlefield
         played_card_names = turn_result.get('cards_played', [])
         cards_to_move = []
@@ -92,9 +77,9 @@ class GameEngine:
             if card._name in played_card_names:
                 cards_to_move.append(card)
                 self._hand.remove(card)
-        
+
         self._battlefield.extend(cards_to_move)
-        
+
         return {
             'turn_number': self._turns_simulated,
             'strategy': self._strategy.get_strategy_name(),
@@ -106,7 +91,7 @@ class GameEngine:
     def get_engine_status(self) -> dict:
         """
         Get current engine status.
-        
+
         Returns:
             dict: Engine status information
         """

@@ -1,63 +1,43 @@
-"""
-TournamentCard - Card with tournament capabilities
-Combines Card, Combatable, and Rankable using multiple inheritance
-"""
 
-import sys
-import os
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# import sys
+# import os
 
-try:
-    from ex0.Card import Card
-except ModuleNotFoundError:
-    from Card import Card
+# sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-try:
-    from ex2.Combatable import Combatable
-except ModuleNotFoundError:
-    from Combatable import Combatable
+from ex0.Card import Card
+from ex2.Combatable import Combatable
+from ex4.Rankable import Rankable
 
-try:
-    from ex4.Rankable import Rankable
-except ModuleNotFoundError:
-    from Rankable import Rankable
+# try:
+
+# except ModuleNotFoundError:
+#     from Card import Card
+
+# try:
+
+# except ModuleNotFoundError:
+#     from Combatable import Combatable
+
+# try:
+
+# except ModuleNotFoundError:
+#     from Rankable import Rankable
 
 
 class TournamentCard(Card, Combatable, Rankable):
-    """
-    TournamentCard combines multiple interfaces for tournament play.
-    
-    Inherits from:
-    - Card: Basic card functionality
-    - Combatable: Combat abilities
-    - Rankable: Tournament ranking
-    
-    This demonstrates advanced multiple inheritance for creating
-    feature-rich game entities.
-    """
 
-    def __init__(self, name: str, cost: int, attack_power: int = 5, 
+    def __init__(self, name: str, cost: int, rarity, attack_power: int = 5,
                  defense_rating: int = 3, starting_rating: int = 1200):
-        """
-        Initialize a tournament card.
-        
-        Args:
-            name: Card name
-            cost: Mana cost
-            attack_power: Attack strength
-            defense_rating: Defense strength
-            starting_rating: Initial tournament rating (default 1200)
-        """
         # Initialize Card parent
-        super().__init__(name, cost)
-        
+        super().__init__(name, cost, rarity)
+
         # Combat attributes (Combatable interface)
         self._attack_power = attack_power
         self._defense_rating = defense_rating
         self._health = 10
         self._max_health = 10
-        
+
         # Ranking attributes (Rankable interface)
         self._rating = starting_rating
         self._wins = 0
@@ -68,10 +48,10 @@ class TournamentCard(Card, Combatable, Rankable):
     def play(self, game_state: dict) -> dict:
         """
         Play the card in a tournament context.
-        
+
         Args:
             game_state: Current game state
-        
+
         Returns:
             dict: Result of playing the card
         """
@@ -88,10 +68,10 @@ class TournamentCard(Card, Combatable, Rankable):
     def attack(self, target) -> dict:
         """
         Attack a target in combat.
-        
+
         Args:
             target: The target to attack
-        
+
         Returns:
             dict: Attack result
         """
@@ -105,17 +85,17 @@ class TournamentCard(Card, Combatable, Rankable):
     def defend(self, incoming_damage: int) -> dict:
         """
         Defend against incoming damage.
-        
+
         Args:
             incoming_damage: Amount of damage to defend against
-        
+
         Returns:
             dict: Defense result
         """
         damage_blocked = min(self._defense_rating, incoming_damage)
         damage_taken = incoming_damage - damage_blocked
         self._health = max(0, self._health - damage_taken)
-        
+
         return {
             'defender': self._name,
             'damage_taken': damage_taken,
@@ -126,7 +106,7 @@ class TournamentCard(Card, Combatable, Rankable):
     def get_combat_stats(self) -> dict:
         """
         Get combat statistics.
-        
+
         Returns:
             dict: Combat stats
         """
@@ -142,11 +122,11 @@ class TournamentCard(Card, Combatable, Rankable):
     def calculate_rating(self) -> int:
         """
         Calculate current rating.
-        
+
         Rating calculation:
         - Base rating adjusted by win/loss ratio
         - Each win adds value, each loss subtracts value
-        
+
         Returns:
             int: Current rating
         """
@@ -155,7 +135,7 @@ class TournamentCard(Card, Combatable, Rankable):
     def update_wins(self, wins: int) -> None:
         """
         Update win count and adjust rating.
-        
+
         Args:
             wins: Number of wins to add
         """
@@ -167,7 +147,7 @@ class TournamentCard(Card, Combatable, Rankable):
     def update_losses(self, losses: int) -> None:
         """
         Update loss count and adjust rating.
-        
+
         Args:
             losses: Number of losses to add
         """
@@ -179,7 +159,7 @@ class TournamentCard(Card, Combatable, Rankable):
     def get_rank_info(self) -> dict:
         """
         Get ranking information.
-        
+
         Returns:
             dict: Ranking info
         """
@@ -196,7 +176,7 @@ class TournamentCard(Card, Combatable, Rankable):
     def get_tournament_stats(self) -> dict:
         """
         Get comprehensive tournament statistics.
-        
+
         Returns:
             dict: Combined stats from all interfaces
         """

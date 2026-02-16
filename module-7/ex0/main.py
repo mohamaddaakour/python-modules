@@ -1,5 +1,4 @@
-from Card import Card
-from CreatureCard import CreatureCard
+from ex0.CreatureCard import CreatureCard
 
 def main():
     print("\n=== DataDeck Card Foundation ===\n")
@@ -16,7 +15,7 @@ def main():
         attack=7,
         health=5
     )
-    
+
     print(fire_dragon.get_card_info())
 
     print("")
@@ -30,7 +29,7 @@ def main():
         game_state = {}
         play_result = fire_dragon.play(game_state)
         print(f"Play result: {play_result}")
-    
+
     print("")
 
     print("Fire Dragon attacks Goblin Warrior:")
@@ -58,7 +57,7 @@ def main():
     print(f"Playable: {is_playable}")
 
     print("")
-    
+
     print("Abstract pattern successfully demonstrated!")
 
 

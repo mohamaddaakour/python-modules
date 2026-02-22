@@ -1,6 +1,6 @@
-import matplotlib.pyplot as plt
 import numpy as np
 
-x = np.arrange(0, 5, 0.1)
-y = np.sin(x)
-plt.plot(x, y)
+a = np.array([1, 2, 3, 4])
+b = np.array([5, 6, 7, 8])
+
+print(np.concatenate( (a, b) ))

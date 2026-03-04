@@ -1,3 +1,5 @@
+# this is a higher-order-function (function that returns function)
+# callable is a function
 def spell_combiner(spell1: callable, spell2: callable) -> callable:
     if not callable(spell1) or not callable(spell2):
         raise TypeError("Both arguments must be callable")

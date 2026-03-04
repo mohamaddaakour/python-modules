@@ -1,7 +1,8 @@
-from pydantic import BaseModel, Field, ValidationError, model_validator
 from datetime import datetime
-from typing import Optional
 from enum import Enum
+from typing import Optional
+
+from pydantic import BaseModel, Field, ValidationError, model_validator
 
 
 class ContactType(str, Enum):
@@ -19,28 +20,48 @@ class AlienContact(BaseModel):
     signal_strength: float = Field(..., ge=0.0, le=10.0)
     duration_minutes: int = Field(..., ge=1, le=1440)
     witness_count: int = Field(..., ge=1, le=100)
-    message_received: Optional[str] = Field(default=None, max_length=500)
+    message_received: Optional[str] = Field(
+        default=None,
+        max_length=500,
+    )
     is_verified: bool = False
 
     @model_validator(mode="after")
-    def check_business_rules(self):
-        # contact_id should start with AC
+    def check_business_rules(self) -> "AlienContact":
         if not self.contact_id.startswith("AC"):
-            raise ValueError("Contact ID must start with 'AC'")
+            raise ValueError(
+                "Contact ID must start with 'AC'"
+            )
 
-        if self.contact_type == ContactType.physical and not self.is_verified:
-            raise ValueError("Physical contact reports must be verified")
+        if (
+            self.contact_type == ContactType.physical
+            and not self.is_verified
+        ):
+            raise ValueError(
+                "Physical contact reports must be verified"
+            )
 
-        if self.contact_type == ContactType.telepathic and self.witness_count < 3:
-            raise ValueError("Telepathic contact requires at least 3 witnesses")
+        if (
+            self.contact_type == ContactType.telepathic
+            and self.witness_count < 3
+        ):
+            raise ValueError(
+                "Telepathic contact requires at least 3 witnesses"
+            )
 
-        if self.signal_strength > 7.0 and not self.message_received:
-            raise ValueError("Strong signals (> 7.0) should include received messages")
+        if (
+            self.signal_strength > 7.0
+            and not self.message_received
+        ):
+            raise ValueError(
+                "Strong signals (> 7.0) should include "
+                "received messages"
+            )
 
         return self
 
 
-def main():
+def main() -> None:
     print("Alien Contact Log Validation")
     print("=" * 38)
 
@@ -65,14 +86,14 @@ def main():
         print(f"Witnesses: {contact.witness_count}")
         print(f"Message: '{contact.message_received}'")
 
-    except ValidationError as e:
-        print("Validation failed:", e)
+    except ValidationError as exc:
+        print("Validation failed:")
+        print(exc)
 
     print("=" * 38)
 
-    # invalid instance
     try:
-        invalid_contact = AlienContact(
+        AlienContact(
             contact_id="AC_2024_002",
             timestamp=datetime.now(),
             location="Unknown Sector",
@@ -82,9 +103,9 @@ def main():
             witness_count=1,
         )
 
-    except ValidationError as e:
+    except ValidationError as exc:
         print("Expected validation error:")
-        print(e)
+        print(exc)
 
 
 if __name__ == "__main__":

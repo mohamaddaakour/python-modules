@@ -1,7 +1,8 @@
-from pydantic import BaseModel, Field, ValidationError, model_validator
 from datetime import datetime
-from typing import List
 from enum import Enum
+from typing import List
+
+from pydantic import BaseModel, Field, ValidationError, model_validator
 
 
 class Rank(str, Enum):
@@ -28,32 +29,54 @@ class SpaceMission(BaseModel):
     destination: str = Field(..., min_length=3, max_length=50)
     launch_date: datetime
     duration_days: int = Field(..., ge=1, le=3650)
-    crew: List[CrewMember] = Field(..., min_length=1, max_length=12)
+    crew: List[CrewMember] = Field(
+        ...,
+        min_length=1,
+        max_length=12,
+    )
     mission_status: str = "planned"
-    budget_millions: float = Field(..., ge=1.0, le=10000.0)
+    budget_millions: float = Field(
+        ...,
+        ge=1.0,
+        le=10000.0,
+    )
 
     @model_validator(mode="after")
     def validate_mission_rules(self) -> "SpaceMission":
-
         if not self.mission_id.startswith("M"):
             raise ValueError("Mission ID must start with 'M'")
 
-        # check if at least one is a commander or captain
-        if not any(member.rank in [Rank.commander, Rank.captain] for member in self.crew):
-            raise ValueError("Mission must have at least one Commander or Captain")
+        if not any(
+            member.rank in (Rank.commander, Rank.captain)
+            for member in self.crew
+        ):
+            raise ValueError(
+                "Mission must have at least one "
+                "Commander or Captain"
+            )
 
         if self.duration_days > 365:
-            experienced_count = sum(1 for m in self.crew if m.years_experience >= 5)
+            experienced_count = sum(
+                1
+                for member in self.crew
+                if member.years_experience >= 5
+            )
+
             if experienced_count < len(self.crew) / 2:
-                raise ValueError("Long missions require at least 50% experienced crew (5+ years)")
+                raise ValueError(
+                    "Long missions require at least 50% "
+                    "experienced crew (5+ years)"
+                )
 
         if not all(member.is_active for member in self.crew):
-            raise ValueError("All crew members must be active")
+            raise ValueError(
+                "All crew members must be active"
+            )
 
         return self
 
 
-def main():
+def main() -> None:
     print("Space Mission Crew Validation")
     print("=" * 40)
 
@@ -101,16 +124,22 @@ def main():
         print(f"Budget: ${valid_mission.budget_millions}M")
         print(f"Crew size: {len(valid_mission.crew)}")
         print("Crew members:")
-        for member in valid_mission.crew:
-            print(f"- {member.name} ({member.rank}) - {member.specialization}")
 
-    except ValidationError as e:
-        print("Validation failed:", e)
+        for member in valid_mission.crew:
+            print(
+                f"- {member.name} "
+                f"({member.rank}) "
+                f"- {member.specialization}"
+            )
+
+    except ValidationError as exc:
+        print("Validation failed:")
+        print(exc)
 
     print("=" * 40)
 
     try:
-        invalid_mission = SpaceMission(
+        SpaceMission(
             mission_id="M2025_FAIL",
             mission_name="Test Mission",
             destination="Moon",
@@ -129,9 +158,9 @@ def main():
             ],
         )
 
-    except ValidationError as e:
+    except ValidationError as exc:
         print("Expected validation error:")
-        print(e)
+        print(exc)
 
 
 if __name__ == "__main__":

@@ -1,3 +1,4 @@
+# nonlocal is reachable by the closest closing function
 def mage_counter() -> callable:
     count = 0
 

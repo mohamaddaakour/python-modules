@@ -1,8 +1,11 @@
 import functools
 import time
+import random
+import inspect
+from typing import Callable
 
 
-def spell_timer(func: callable) -> callable:
+def spell_timer(func: Callable) -> Callable:
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
         print(f"Casting {func.__name__}...")
@@ -14,11 +17,14 @@ def spell_timer(func: callable) -> callable:
     return wrapper
 
 
-def power_validator(min_power: int) -> callable:
-    def decorator(func: callable) -> callable:
+def power_validator(min_power: int) -> Callable:
+    def decorator(func: Callable) -> Callable:
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
-            power = args[0]
+            sig = inspect.signature(func)
+            bound = sig.bind(*args, **kwargs)
+            bound.apply_defaults()
+            power = bound.arguments.get("power")
             if power >= min_power:
                 return func(*args, **kwargs)
             return "Insufficient power for this spell"
@@ -26,22 +32,22 @@ def power_validator(min_power: int) -> callable:
     return decorator
 
 
-def retry_spell(max_attempts: int) -> callable:
-    def decorator(func: callable) -> callable:
+def retry_spell(max_attempts: int) -> Callable:
+    def decorator(func: Callable) -> Callable:
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
             for attempt in range(1, max_attempts + 1):
                 try:
                     return func(*args, **kwargs)
                 except Exception:
-                    print(f"Spell failed, retrying... (attempt {attempt}/{max_attempts})")
+                    print(f"Spell failed, retrying..."
+                          f"(attempt {attempt}/{max_attempts})")
             return f"Spell casting failed after {max_attempts} attempts"
         return wrapper
     return decorator
 
 
 class MageGuild:
-
     @staticmethod
     def validate_mage_name(name: str) -> bool:
         return len(name) >= 3 and all(c.isalpha() or c.isspace() for c in name)
@@ -52,8 +58,6 @@ class MageGuild:
 
 
 if __name__ == "__main__":
-
-    print("Testing spell timer...")
     @spell_timer
     def fireball():
         time.sleep(0.1)
@@ -62,16 +66,12 @@ if __name__ == "__main__":
     result = fireball()
     print("Result:", result)
 
-    print("\nTesting MageGuild...")
     print(MageGuild.validate_mage_name("Gandalf"))
     print(MageGuild.validate_mage_name("Al"))
 
     guild = MageGuild()
     print(guild.cast_spell(15, "Lightning"))
     print(guild.cast_spell(5, "Spark"))
-
-    print("\nTesting retry_spell...")
-    import random
 
     @retry_spell(max_attempts=3)
     def risky_spell():

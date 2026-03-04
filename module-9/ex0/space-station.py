@@ -1,10 +1,10 @@
-from pydantic import BaseModel, Field, ValidationError
 from datetime import datetime
 from typing import Optional
 
+from pydantic import BaseModel, Field, ValidationError
+
 
 class SpaceStation(BaseModel):
-    # ... means this field is required
     station_id: str = Field(..., min_length=3, max_length=10)
     name: str = Field(..., min_length=1, max_length=50)
     crew_size: int = Field(..., ge=1, le=20)
@@ -12,16 +12,17 @@ class SpaceStation(BaseModel):
     oxygen_level: float = Field(..., ge=0.0, le=100.0)
     last_maintenance: datetime
     is_operational: bool = True
-    notes: Optional[str] = Field(default=None, max_length=200)
+    notes: Optional[str] = Field(
+        default=None,
+        max_length=200,
+    )
 
 
-def main():
+def main() -> None:
     print("Space Station Data Validation")
     print("=" * 40)
 
-    # Valid station
     try:
-        # we create an instance
         station = SpaceStation(
             station_id="ISS001",
             name="International Space Station",
@@ -37,16 +38,22 @@ def main():
         print(f"Crew: {station.crew_size} people")
         print(f"Power: {station.power_level}%")
         print(f"Oxygen: {station.oxygen_level}%")
-        print(f"Status: {'Operational' if station.is_operational else 'Not Operational'}")
 
-    except ValidationError as e:
-        print("Validation failed:", e)
+        status = (
+            "Operational"
+            if station.is_operational
+            else "Not Operational"
+        )
+        print(f"Status: {status}")
+
+    except ValidationError as exc:
+        print("Validation failed:")
+        print(exc)
 
     print("=" * 40)
 
-    # invalid case
     try:
-        invalid_station = SpaceStation(
+        SpaceStation(
             station_id="BAD001",
             name="Overcrowded Station",
             crew_size=25,
@@ -55,9 +62,9 @@ def main():
             last_maintenance=datetime.now(),
         )
 
-    except ValidationError as e:
+    except ValidationError as exc:
         print("Expected validation error:")
-        print(e)
+        print(exc)
 
 
 if __name__ == "__main__":

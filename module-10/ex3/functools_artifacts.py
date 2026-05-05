@@ -4,6 +4,7 @@ from typing import Any, Callable, Dict, List
 
 
 def spell_reducer(spells: List[int], operation: str) -> int:
+    # operator apply specific operation
     ops: Dict[str, Callable[[int, int], int]] = {
         "add": operator.add,
         "multiply": operator.mul,
@@ -17,21 +18,20 @@ def spell_reducer(spells: List[int], operation: str) -> int:
             "'max', or 'min'"
         )
 
+    # we take the operation
+    # now func is the function and inside it the logic of the operation
     func = ops[operation]
 
     if operation in ("max", "min"):
         return func(spells)
 
+    # functools.reduce(function, list)
     return functools.reduce(func, spells)
 
 
 def partial_enchanter(
     base_enchantment: Callable[..., str],
 ) -> Dict[str, Callable[[str], str]]:
-    """
-    Returns a dictionary of pre-configured enchantment functions.
-    Each function only requires the `target` argument.
-    """
     return {
         "fire_enchant": functools.partial(
             base_enchantment,
@@ -55,6 +55,8 @@ def base_enchant(target: str, power: int, element: str) -> str:
     return f"{element} enchant with {power} power on {target}"
 
 
+# to memorize the result of the first call and like this
+# we will not calculate it again from the beginning
 @functools.lru_cache(maxsize=None)
 def memoized_fibonacci(n: int) -> int:
     if n <= 0:
@@ -69,6 +71,8 @@ def memoized_fibonacci(n: int) -> int:
     )
 
 
+# this will check every input we give it as an argument
+# for the cast function
 def spell_dispatcher() -> Callable[[Any], Any]:
     @functools.singledispatch
     def cast(spell: Any) -> Any:

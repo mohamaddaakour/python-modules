@@ -6,12 +6,14 @@ from pydantic import BaseModel, Field, ValidationError, model_validator
 
 
 class ContactType(str, Enum):
+    # these are the only allowed values for ContactType
     radio = "radio"
     visual = "visual"
     physical = "physical"
     telepathic = "telepathic"
 
 
+# we define the pydantic model (because we inherit from BaseModel)
 class AlienContact(BaseModel):
     contact_id: str = Field(..., min_length=5, max_length=15)
     timestamp: datetime
@@ -26,6 +28,7 @@ class AlienContact(BaseModel):
     )
     is_verified: bool = False
 
+    # model-level validator runs after all fields are validated
     @model_validator(mode="after")
     def check_business_rules(self) -> "AlienContact":
         if not self.contact_id.startswith("AC"):

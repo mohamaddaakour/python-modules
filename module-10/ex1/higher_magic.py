@@ -1,9 +1,12 @@
 # this is a higher-order-function (function that returns function)
 # callable is a function
 def spell_combiner(spell1: callable, spell2: callable) -> callable:
+    # check if both inputs are functions
     if not callable(spell1) or not callable(spell2):
         raise TypeError("Both arguments must be callable")
 
+    # we use *atgs and **kwargs to make it flexible and accept any
+    # type of arguments
     def combined(*args, **kwargs):
         return (spell1(*args, **kwargs), spell2(*args, **kwargs))
 

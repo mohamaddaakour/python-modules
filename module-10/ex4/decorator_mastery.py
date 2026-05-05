@@ -17,6 +17,9 @@ def spell_timer(func: Callable) -> Callable:
     return wrapper
 
 
+# signature() get function parameters
+# bind() map values to parameters
+# apply_defaults() fill missing values
 def power_validator(min_power: int) -> Callable:
     def decorator(func: Callable) -> Callable:
         @functools.wraps(func)
